@@ -22,10 +22,15 @@ export class LoginService{
   public login(username: string, password: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa(username + ':' + password)
-    })
-    return this._http.post<ILoginResponse>('http://localhost:8080/login',{}, {headers: headers}).pipe(
+    });
+
+    return this._http.post<ILoginResponse>('http://localhost:8080/login',{}, {headers: headers}).pipe(tap(() => sessionStorage.setItem('token', btoa(username + ':' + password))),
       tap((response: ILoginResponse) => this.sessionService.user = new User(response.email,response.name,response.surname,response.role)
-      )
-  );
+      ));
+  }
+
+  public logout(): void {
+    sessionStorage.removeItem('token');
+    this.sessionService.user = undefined;
   }
 }

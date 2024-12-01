@@ -19,9 +19,9 @@ export class LoginComponent {
 
   public password = '';
 
-  public hasError = false;
+  private _hasError = false;
 
-  constructor(private loginService: LoginService, private sessionService: SessionService) {
+  constructor(private _loginService: LoginService, private _sessionService: SessionService) {
   }
 
   public get isLoginDisabled(): boolean {
@@ -29,23 +29,33 @@ export class LoginComponent {
   }
 
   public get isLoginRendered(): boolean {
-    return !this.sessionService.hasUser;
+    return !this._sessionService.hasUser;
   }
 
   public get isLogoutDisabled(): boolean {
-    return this.sessionService.hasUser;
+    return this._sessionService.hasUser;
   }
 
-  public login(){
-    this.loginService.login(this.username, this.password).subscribe(
-      () => () => {},
-      error => () => {
-        this.hasError = true;
-      }
-    );
+
+  public set hasErrors(value: boolean) {
+    this._hasError = value;
+  }
+
+  public get hasErrors(): boolean {
+    return this._hasError;
+  }
+
+  public login() {
+    this._loginService
+      .login(this.username, this.password)
+      .subscribe(() => {
+        this.hasErrors = false;
+      }, () => {
+        this.hasErrors = true;
+      });
   }
 
   public logout() {
-    this.sessionService.user = undefined;
+    this._sessionService.user = undefined;
   }
 }

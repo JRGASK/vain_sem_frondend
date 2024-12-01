@@ -1,15 +1,15 @@
 <div class="container">
   <div class="form">
     <label for="USER_NAME">
-      <input type="text" name="username" id="USER_NAME" placeholder="Username" [(ngModel)]="username">
+      <input type="text" name="username" id="USER_NAME" placeholder="Username" [ngClass]="hasErrors ? 'error' : ''" [(ngModel)]="username">
     </label>
 
     <label for="PASSWORD">
-      <input type="password" name="password" id="PASSWORD" placeholder="Password" [(ngModel)]="password">
+      <input type="password" name="password" id="PASSWORD" placeholder="Password" [ngClass]="hasErrors ? 'error' : ''" [(ngModel)]="password">
     </label>
-
   </div>
 
-  <button (click)="login()">Login</button>
+  <button *ngIf="isLoginRendered" [disabled]="isLogoutDisabled" (click)="login()">Login</button>
+  <button *ngIf="isLogoutDisabled"  (click)="logout()">Logout</button>
 
 </div>
