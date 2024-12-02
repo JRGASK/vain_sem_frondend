@@ -1,0 +1,24 @@
+.table-container {
+    margin: 20px;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.user-table th {
+    background-color: #f4f4f4;
+}
+
+button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}

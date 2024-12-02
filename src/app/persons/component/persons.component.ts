@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { JsonPipe, NgIf } from '@angular/common';
+import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { LoginService } from '../../login/service/login.service';
 import { PersonsService } from '../service/persons.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonCreateDto } from '../person/personCreateDto';
 
+//TODO spravit login get
+//TODO spravit put
+
 @Component({
   selector: 'app-persons',
   standalone: true,
-  imports: [HttpClientModule, JsonPipe, NgIf, ReactiveFormsModule, FormsModule],
+  imports: [HttpClientModule, JsonPipe, NgIf, ReactiveFormsModule, FormsModule,CommonModule],
   providers: [LoginService, PersonsService],
   templateUrl: './persons.component.html',
   styleUrl: './persons.component.css',
@@ -23,6 +26,8 @@ export class PersonsComponent implements OnInit {
 
   private personCreateDto: any;
 
+  public users: any[] = [];
+
   public createdEmail = '';
   public createdName = '';
   public createdSurname = '';
@@ -32,12 +37,20 @@ export class PersonsComponent implements OnInit {
 
   constructor(
     private _personsService: PersonsService,
-    private _loginService: LoginService,
+    private _loginService: LoginService
   ) {}
 
   public ngOnInit(): void {
+    this.loadData();
+  }
+
+  public refreshData():void {
+    this.loadData();
+  }
+
+  public loadData():void{
     this._personsService.getPersons().subscribe(
-      (response: any) => (this.persons = response),
+      (response: any) => (this.users = response.content),
       (error: any) => console.log(error)
     );
   }
@@ -49,8 +62,16 @@ export class PersonsComponent implements OnInit {
     );
   }
 
-  public deletePeson(): void{
-    this._personsService.deletePerson(this.email).subscribe();
+  public getPersonInfo(user:any): void {
+    this._personsService.getPersonByEmail(user.email).subscribe(
+      (response: any) => (this.onePerson = response),
+      (error: any) => console.log(error)
+    );
+  }
+
+  public deletePeson(users:any): void{
+    this._personsService.deletePerson(users.email).subscribe();
+    this.refreshData();
   }
 
   public createPerson(): void{
@@ -67,6 +88,7 @@ export class PersonsComponent implements OnInit {
       (response: any) => console.log(response),
       (error: any) => console.log(error)
     );
+    this.refreshData();
   }
 
   public logout(): void {

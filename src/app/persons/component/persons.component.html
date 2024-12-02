@@ -1,9 +1,4 @@
 <div>
-  <h1>Persons</h1>
-  {{persons | json}}
-</div>
-
-<div>
   <h1>Person</h1>
   <div class="container">
     <div class="form">
@@ -11,10 +6,7 @@
         <input type="text" name="username" id="USER_NAME" placeholder="Username" [(ngModel)]="email" required="required">
       </label>
     </div>
-
     <button (click)="getPersonByEmail()">Search</button>
-    <button (click)="deletePeson()">Delete</button>
-
     <div>
       {{onePerson| json}}
     </div>
@@ -40,10 +32,37 @@
       <label for="phoneNumber">Phone Number</label>
       <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required placeholder="1234567890" [(ngModel)]="createdPhoneNumber">
 
-      <button type="submit" (click)="createPerson()">Create Person</button>
+      <button type="submit" class="btn" (click)="createPerson()">Create Person</button>
     </form>
-
   </div>
 </div>
+
+
+<div class="table-container">
+  <table border="1" class="user-table">
+    <thead>
+    <tr>
+      <th>Email</th>
+      <th>Meno</th>
+      <th>Priezvisko</th>
+      <th>Akcie</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.email }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.surname }}</td>
+      <td>
+        <button (click)="getPersonInfo(user)">Get</button>
+        <button (click)="deletePeson(user)">Delete</button>
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p *ngIf="users.length === 0">Nie sú dostupné žiadne údaje.</p>
+</div>
+
 
 <button (click)="logout()">Logout</button>
