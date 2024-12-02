@@ -11,4 +11,8 @@ export class PersonsService {
   public getPersons():Observable<any> {
    return this._http.get('http://localhost:8080/persons');
   }
+
+  public getPersonByEmail(email:string):Observable<any> {
+    return this._http.get(`http://localhost:8080/persons/person/${email}`);
+  }
 }

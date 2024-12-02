@@ -16,11 +16,16 @@ export class PersonsComponent implements OnInit{
 
   public persons: any;
 
+  public onePerson: any;
+
   constructor(private _personsService: PersonsService, private _loginService: LoginService) {
   }
 
   public ngOnInit(): void {
     this._personsService.getPersons().subscribe((response: any) => (this.persons = response),
+      (error: any) => console.log(error));
+
+    this._personsService.getPersonByEmail('juraj@admin.com').subscribe((response: any) => (this.onePerson = response),
       (error: any) => console.log(error));
   }
 
