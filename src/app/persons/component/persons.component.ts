@@ -3,7 +3,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { JsonPipe } from '@angular/common';
 import { LoginService } from '../../login/service/login.service';
 import { PersonsService } from '../service/persons.service';
-import * as console from 'node:console';
 
 @Component({
   selector: 'app-persons',

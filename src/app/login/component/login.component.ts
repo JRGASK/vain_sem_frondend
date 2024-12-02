@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginService } from '../service/login.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SessionService } from '../session/session.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class LoginComponent {
 
   private _hasError = false;
 
-  constructor(private _loginService: LoginService, private _sessionService: SessionService) {
+  constructor(private _loginService: LoginService, private _sessionService: SessionService, private _router:Router) {
   }
 
   public get isLoginDisabled(): boolean {
@@ -50,6 +51,7 @@ export class LoginComponent {
       .login(this.username, this.password)
       .subscribe(() => {
         this.hasErrors = false;
+        this._router.navigate(['/persons'])
       }, () => {
         this.hasErrors = true;
       });

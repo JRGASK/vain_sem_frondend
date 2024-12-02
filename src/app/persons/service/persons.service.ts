@@ -9,6 +9,6 @@ export class PersonsService {
   constructor(private _http: HttpClient) {}
 
   public getPersons():Observable<any> {
-   return this._http.get('http://localhost:3000/persons');
+   return this._http.get('http://localhost:8080/persons');
   }
 }
