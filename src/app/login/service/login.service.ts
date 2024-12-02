@@ -3,6 +3,7 @@ import { Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SessionService } from '../session/session.service';
 import { User } from '../user/user';
+import { Router } from '@angular/router';
 
 export interface ILoginResponse {
   email: string;
@@ -16,7 +17,7 @@ export interface ILoginResponse {
 })
 export class LoginService{
 
-  constructor(private _http: HttpClient, private sessionService: SessionService) {
+  constructor(private _http: HttpClient, private sessionService: SessionService, private _router: Router) {
   }
 
   public login(username: string, password: string): Observable<any> {
@@ -32,5 +33,6 @@ export class LoginService{
   public logout(): void {
     sessionStorage.removeItem('token');
     this.sessionService.user = undefined;
+    this._router.navigate(['/login']);
   }
 }
