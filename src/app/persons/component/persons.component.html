@@ -8,15 +8,40 @@
   <div class="container">
     <div class="form">
       <label for="USER_NAME">
-        <input type="text" name="username" id="USER_NAME" placeholder="Username" [(ngModel)]="email" required>
+        <input type="text" name="username" id="USER_NAME" placeholder="Username" [(ngModel)]="email" required="required">
       </label>
     </div>
 
     <button (click)="getPersonByEmail()">Search</button>
+    <button (click)="deletePeson()">Delete</button>
 
     <div>
       {{onePerson| json}}
     </div>
+
+    <h1>Create a Person</h1>
+    <form id="personForm">
+      <label for="email">Email</label>
+      <input type="email" id="EMAIL" name="email" [(ngModel)]="createdEmail" required>
+
+      <label for="name">First Name</label>
+      <input type="text" id="name" name="name"  [(ngModel)]="createdName" required>
+
+      <label for="surname">Last Name</label>
+      <input type="text" id="surname" name="surname" [(ngModel)]="createdSurname" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="createdPassword" required>
+
+
+      <label for="rola">Rola</label>
+      <input type="text" id="rola" name="rola" [(ngModel)]="createdRole" required>
+
+      <label for="phoneNumber">Phone Number</label>
+      <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required placeholder="1234567890" [(ngModel)]="createdPhoneNumber">
+
+      <button type="submit" (click)="createPerson()">Create Person</button>
+    </form>
 
   </div>
 </div>

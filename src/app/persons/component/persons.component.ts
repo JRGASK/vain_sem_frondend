@@ -4,6 +4,7 @@ import { JsonPipe, NgIf } from '@angular/common';
 import { LoginService } from '../../login/service/login.service';
 import { PersonsService } from '../service/persons.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PersonCreateDto } from '../person/personCreateDto';
 
 @Component({
   selector: 'app-persons',
@@ -20,9 +21,18 @@ export class PersonsComponent implements OnInit {
 
   public email = '';
 
+  private personCreateDto: any;
+
+  public createdEmail = '';
+  public createdName = '';
+  public createdSurname = '';
+  public createdPassword = '';
+  public createdRole = '';
+  public createdPhoneNumber = '';
+
   constructor(
     private _personsService: PersonsService,
-    private _loginService: LoginService
+    private _loginService: LoginService,
   ) {}
 
   public ngOnInit(): void {
@@ -35,6 +45,26 @@ export class PersonsComponent implements OnInit {
   public getPersonByEmail(): void {
     this._personsService.getPersonByEmail(this.email).subscribe(
       (response: any) => (this.onePerson = response),
+      (error: any) => console.log(error)
+    );
+  }
+
+  public deletePeson(): void{
+    this._personsService.deletePerson(this.email).subscribe();
+  }
+
+  public createPerson(): void{
+    this.personCreateDto = new PersonCreateDto(
+      this.createdEmail,
+      this.createdName,
+      this.createdSurname,
+      this.createdPassword,
+      this.createdRole,
+      this.createdPhoneNumber
+    );
+
+    this._personsService.createPerson(this.personCreateDto).subscribe(
+      (response: any) => console.log(response),
       (error: any) => console.log(error)
     );
   }
