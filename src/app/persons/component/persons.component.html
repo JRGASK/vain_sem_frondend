@@ -6,63 +6,109 @@
         <input type="text" name="username" id="USER_NAME" placeholder="Username" [(ngModel)]="email" required="required">
       </label>
     </div>
+
     <button (click)="getPersonByEmail()">Search</button>
-    <div>
-      {{onePerson| json}}
+
+    <div class="container mt-5">
+      <div class="table-container">
+        <table border="1" class="user-table table table-hover">
+          <thead>
+          <tr>
+            <th>Email</th>
+            <th>Meno</th>
+            <th>Priezvisko</th>
+            <th>Akcie</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.email }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.surname }}</td>
+            <td>
+              <button type="button" class="btn btn-info" (click)="getPersonInfo(user)">Get</button>
+              <button type="button" class="btn btn-primary"(click)="updatePerson(user.email)">Update</button>
+              <button type="button" class="btn btn-danger" (click)="deletePerson(user)">Delete</button>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <p *ngIf="users.length === 0">Nie sú dostupné žiadne údaje.</p>
+      </div>
+
+
+      <div class="container mt-5">
+      <h1 class="mb-4 text-center">Create a Person</h1>
+      <form id="personForm" class="needs-validation">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="EMAIL"
+            name="email"
+            class="form-control"
+            placeholder="Enter your email"
+            [(ngModel)]="createdEmail"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">First Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control"
+            placeholder="Enter your first name"
+            [(ngModel)]="createdName"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="surname" class="form-label">Last Name</label>
+          <input
+            type="text"
+            id="surname"
+            name="surname"
+            class="form-control"
+            placeholder="Enter your last name"
+            [(ngModel)]="createdSurname"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter a secure password"
+            [(ngModel)]="createdPassword"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="rola" class="form-label">Role</label>
+          <select id="rola" name="rola" class="form-select" [(ngModel)]="createdRole">
+            <option value="" disabled selected>Select a role</option>
+            <option value="CUSTOMER">CUSTOMER</option>
+            <option value="ADMIN">ADMIN</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Phone Number</label>
+          <input
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            class="form-control"
+            placeholder="1234567890"
+            [(ngModel)]="createdPhoneNumber"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100" (click)="createPerson()">Create Person</button>
+      </form>
     </div>
-
-    <h1>Create a Person</h1>
-    <form id="personForm">
-      <label for="email">Email</label>
-      <input type="email" id="EMAIL" name="email" [(ngModel)]="createdEmail" required>
-
-      <label for="name">First Name</label>
-      <input type="text" id="name" name="name"  [(ngModel)]="createdName" required>
-
-      <label for="surname">Last Name</label>
-      <input type="text" id="surname" name="surname" [(ngModel)]="createdSurname" required>
-
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" [(ngModel)]="createdPassword" required>
-
-
-      <label for="rola">Rola</label>
-      <input type="text" id="rola" name="rola" [(ngModel)]="createdRole" required>
-
-      <label for="phoneNumber">Phone Number</label>
-      <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required placeholder="1234567890" [(ngModel)]="createdPhoneNumber">
-
-      <button type="submit" class="btn" (click)="createPerson()">Create Person</button>
-    </form>
   </div>
+
+<div>
+  <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
 </div>
-
-
-<div class="table-container">
-  <table border="1" class="user-table table table-hover">
-    <thead>
-    <tr>
-      <th>Email</th>
-      <th>Meno</th>
-      <th>Priezvisko</th>
-      <th>Akcie</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.email }}</td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.surname }}</td>
-      <td>
-        <button (click)="getPersonInfo(user)">Get</button>
-        <button (click)="deletePeson(user)">Delete</button>
-
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <p *ngIf="users.length === 0">Nie sú dostupné žiadne údaje.</p>
-</div>
-
-
-<button (click)="logout()">Logout</button>

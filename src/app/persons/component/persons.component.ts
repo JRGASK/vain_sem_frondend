@@ -5,6 +5,8 @@ import { LoginService } from '../../login/service/login.service';
 import { PersonsService } from '../service/persons.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonCreateDto } from '../person/personCreateDto';
+import { SessionService } from '../../login/session/session.service';
+import { Router } from '@angular/router';
 
 //TODO spravit login get
 //TODO spravit put
@@ -13,7 +15,7 @@ import { PersonCreateDto } from '../person/personCreateDto';
   selector: 'app-persons',
   standalone: true,
   imports: [HttpClientModule, JsonPipe, NgIf, ReactiveFormsModule, FormsModule,CommonModule],
-  providers: [LoginService, PersonsService],
+  providers: [LoginService, PersonsService,SessionService],
   templateUrl: './persons.component.html',
   styleUrl: './persons.component.css',
 })
@@ -37,7 +39,8 @@ export class PersonsComponent implements OnInit {
 
   constructor(
     private _personsService: PersonsService,
-    private _loginService: LoginService
+    private _loginService: LoginService,
+    private _router: Router
   ) {}
 
   public ngOnInit(): void {
@@ -46,6 +49,7 @@ export class PersonsComponent implements OnInit {
 
   public refreshData():void {
     this.loadData();
+    this._router.navigate(['/persons']);
   }
 
   public loadData():void{
@@ -69,9 +73,10 @@ export class PersonsComponent implements OnInit {
     );
   }
 
-  public deletePeson(users:any): void{
+  public deletePerson(users:any): void{
     this._personsService.deletePerson(users.email).subscribe();
     this.refreshData();
+
   }
 
   public createPerson(): void{
@@ -89,6 +94,12 @@ export class PersonsComponent implements OnInit {
       (error: any) => console.log(error)
     );
     this.refreshData();
+
+  }
+
+  public updatePerson(email:string): void{
+    console.log(email);
+    this._router.navigate(['/personUpdate'], { state: { email: email } });
   }
 
   public logout(): void {

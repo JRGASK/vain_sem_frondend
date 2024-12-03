@@ -9,7 +9,7 @@
     </label>
   </div>
 
-  <button *ngIf="isLoginRendered" [disabled]="isLogoutDisabled" (click)="login()">Login</button>
-  <button *ngIf="isLogoutDisabled"  (click)="logout()">Logout</button>
+  <button type="button" class="btn btn-primary" *ngIf="isLoginRendered" [disabled]="isLogoutDisabled" (click)="login()">Login</button>
+  <button type="button" class="btn btn-primary" *ngIf="isLogoutDisabled"  (click)="logout()">Logout</button>
 
 </div>
