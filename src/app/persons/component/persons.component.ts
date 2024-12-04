@@ -37,6 +37,10 @@ export class PersonsComponent implements OnInit {
 
   public users: any[] = [];
 
+  public hasErro = false;
+
+  public erroMesage = '';
+
   public createdEmail = '';
   public createdName = '';
   public createdSurname = '';
@@ -174,4 +178,5 @@ export class PersonsComponent implements OnInit {
     this.createdRole = '';
     this.createdPhoneNumber = '';
   }
+
 }
