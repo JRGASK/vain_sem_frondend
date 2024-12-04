@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonCreateDto } from '../person/personCreateDto';
 import { SessionService } from '../../login/session/session.service';
 import { Router } from '@angular/router';
+import { PersonUpdateDto } from '../person/personUpdateDto';
 
 //TODO spravit login get
 //TODO spravit put
@@ -31,6 +32,8 @@ export class PersonsComponent implements OnInit {
   public email = '';
 
   private personCreateDto: any;
+
+  private personUpdateDto: any;
 
   public users: any[] = [];
 
@@ -134,6 +137,12 @@ export class PersonsComponent implements OnInit {
 
   public updatePerson(): void {
     console.log(this.personToUpdate);
+    this.personUpdateDto = new PersonUpdateDto(this.updatedName, this.updatedSurname, this.updatedRole, this.updatedPhoneNumber);
+    this._personsService.updatePerson(this.personToUpdate.email, this.personUpdateDto).subscribe((response: any) => {
+        this.refreshData();
+      },
+      (error: any) => console.error('Error creating:', error)
+    );
   }
 
   public logout(): void {
@@ -143,4 +152,18 @@ export class PersonsComponent implements OnInit {
   public hidePersonDetails():void {
     this.onePerson = null;
   }
+
+  public get isCreateButtonDisabled(): boolean {
+    return this.createdName.length === 0 || this.createdSurname.length === 0 ||
+            this.createdPassword.length === 0 || this.createdRole.length === 0 ||
+            this.createdPhoneNumber.length === 0;
+
+  }
+
+  public get isUpdateButtonDisabled(): boolean {
+    return this.updatedName.length === 0 || this.updatedSurname.length === 0 ||
+            this.updatedRole.length === 0 || this.updatedPhoneNumber.length === 0;
+  }
+
+
 }
