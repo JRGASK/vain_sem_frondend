@@ -1,4 +1,5 @@
-<div>
+<!-- niektoré komponenty boli prevzané s bootstrapu a upravené pre moje potreby -->
+<div >
   <h1>Person</h1>
   <div class="container">
     <div *ngIf="users" class="container mt-5">
@@ -21,7 +22,6 @@
               <button type="button" class="btn btn-info" (click)="getPersonInfo(user)">Get</button>
               <button type="button" class="btn btn-primary"(click)="updatePersonFormShow(user.email)">Update</button>
               <button type="button" class="btn btn-danger" (click)="deletePerson(user)">Delete</button>
-
             </td>
           </tr>
           </tbody>

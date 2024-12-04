@@ -1,15 +1,20 @@
+<!-- niektoré komponenty boli prevzané s bootstrapu a upravené pre moje potreby -->
 <div class="container">
-  <div class="form">
-    <label for="USER_NAME">
-      <input type="text" name="username" id="USER_NAME" placeholder="Username" [ngClass]="hasErrors ? 'error' : ''" [(ngModel)]="username">
-    </label>
-
-    <label for="PASSWORD">
-      <input type="password" name="password" id="PASSWORD" placeholder="Password" [ngClass]="hasErrors ? 'error' : ''" [(ngModel)]="password">
-    </label>
+  <div class="login-container">
+    <div class="login-header">
+      <h2>Prihlásenie</h2>
+      <p>Vitajte späť! Prihláste sa, prosím, do svojho účtu.</p>
+    </div>
+    <form>
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mailová adresa</label>
+        <input type="username" class="form-control" name="username" id="email" placeholder="Zadajte svoj e-mail" [ngClass]="hasErrors ? 'error' : ''" [(ngModel)]="username" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Heslo</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Zadajte svoje heslo" [ngClass]="hasErrors ? 'error' : ''" [(ngModel)]="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary " *ngIf="isLoginRendered" [disabled]="isLogoutDisabled" (click)="login()">Prihlásiť sa</button>
+    </form>
   </div>
-
-  <button type="button" class="btn btn-primary" *ngIf="isLoginRendered" [disabled]="isLogoutDisabled" (click)="login()">Login</button>
-  <button type="button" class="btn btn-primary" *ngIf="isLogoutDisabled"  (click)="logout()">Logout</button>
-
 </div>
