@@ -3,7 +3,7 @@
   <div class="container">
     <div class="form">
       <label for="USER_NAME">
-        <input type="text" name="username" id="USER_NAME" placeholder="Username" [(ngModel)]="email" required="required">
+        <input type="text" name="username" id="USER_NAME" placeholder="Email" [(ngModel)]="email" required="required">
       </label>
     </div>
 
@@ -37,6 +37,16 @@
         <p *ngIf="users.length === 0">Nie sú dostupné žiadne údaje.</p>
       </div>
 
+      <div *ngIf="onePerson" class="mt-4 container mt-5">
+        <h3>Details of Selected Person</h3>
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-action"><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action"><strong>Meno:</strong> {{ onePerson.name || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action"><strong>Priezvisko:</strong> {{ onePerson.surname ||'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action"><strong>Telefón:</strong> {{ onePerson.phoneNumber || 'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action"><strong>Rola:</strong> {{ onePerson.role || 'Not Available' }}</li>
+        </ul>
+      </div>
 
       <div class="container mt-5">
       <h1 class="mb-4 text-center">Create a Person</h1>
@@ -53,7 +63,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="name" class="form-label">First Name</label>
+          <label for="name" class="form-label">Name</label>
           <input
             type="text"
             id="name"
@@ -64,7 +74,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="surname" class="form-label">Last Name</label>
+          <label for="surname" class="form-label">Surname</label>
           <input
             type="text"
             id="surname"
@@ -109,6 +119,6 @@
     </div>
   </div>
 
-<div>
+<div class="container mt-5 mb-5">
   <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
 </div>
