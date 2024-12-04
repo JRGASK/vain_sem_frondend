@@ -1,14 +1,6 @@
 <div>
   <h1>Person</h1>
   <div class="container">
-    <div class="form">
-      <label for="USER_NAME">
-        <input type="text" name="username" id="USER_NAME" placeholder="Email" [(ngModel)]="email" required="required">
-      </label>
-    </div>
-
-    <button (click)="getPersonByEmail()">Search</button>
-
     <div *ngIf="users" class="container mt-5">
       <div class="table-container">
         <table border="1" class="user-table table table-hover">

@@ -113,6 +113,7 @@ export class PersonsComponent implements OnInit {
     this._personsService.createPerson(this.personCreateDto).subscribe(
       (response: any) => {
         this.refreshData();
+        this.resetCreate();
         },
       (error: any) => console.error('Error creating:', error)
     );
@@ -165,5 +166,12 @@ export class PersonsComponent implements OnInit {
             this.updatedRole.length === 0 || this.updatedPhoneNumber.length === 0;
   }
 
-
+  public resetCreate(): void {
+    this.createdEmail = '';
+    this.createdName = '';
+    this.createdSurname = '';
+    this.createdPassword = '';
+    this.createdRole = '';
+    this.createdPhoneNumber = '';
+  }
 }
