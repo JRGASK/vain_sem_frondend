@@ -156,7 +156,7 @@
             [(ngModel)]="createdPhoneNumber"
           />
         </div>
-        <button type="submit" class="btn btn-primary w-100"  (click)="createPerson()">Create Person</button>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="isCreateButtonDisabled"  (click)="createPerson()">Create Person</button>
       </form>
     </div>
       <div class="container mt-5 mb-5">
