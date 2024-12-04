@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { LoginService } from '../../login/service/login.service';
@@ -24,6 +24,10 @@ export class PersonsComponent implements OnInit {
 
   public onePerson: any;
 
+  public personToUpdate: any;
+
+  public updateShow = false;
+
   public email = '';
 
   private personCreateDto: any;
@@ -37,22 +41,33 @@ export class PersonsComponent implements OnInit {
   public createdRole = '';
   public createdPhoneNumber = '';
 
+  public updatedEmail = '';
+  public updatedName = '';
+  public updatedSurname = '';
+  public updatedRole = '';
+  public updatedPhoneNumber = '';
+
+  public reload = false;
+
   constructor(
     private _personsService: PersonsService,
     private _loginService: LoginService,
-    private _router: Router
-  ) {}
+    private _router: Router,
+    private cdr: ChangeDetectorRef
+  ) {
+  }
 
   public ngOnInit(): void {
     this.loadData();
   }
 
-  public refreshData():void {
+  public refreshData(): void {
     this.loadData();
+    this.cdr.detectChanges();
     this._router.navigate(['/persons']);
   }
 
-  public loadData():void{
+  public loadData(): void {
     this._personsService.getPersons().subscribe(
       (response: any) => (this.users = response.content),
       (error: any) => console.log(error)
@@ -66,20 +81,23 @@ export class PersonsComponent implements OnInit {
     );
   }
 
-  public getPersonInfo(user:any): void {
+  public getPersonInfo(user: any): void {
     this._personsService.getPersonByEmail(user.email).subscribe(
       (response: any) => (this.onePerson = response),
       (error: any) => console.log(error)
     );
   }
 
-  public deletePerson(users:any): void{
-    this._personsService.deletePerson(users.email).subscribe();
-    this.refreshData();
-
+  public deletePerson(users: any): void {
+    this._personsService.deletePerson(users.email).subscribe(
+      (response: any) => {
+        this.refreshData();
+      },
+      (error: any) => console.error('Error deleting:', error)
+    );
   }
 
-  public createPerson(): void{
+  public createPerson(): void {
     this.personCreateDto = new PersonCreateDto(
       this.createdEmail,
       this.createdName,
@@ -90,19 +108,39 @@ export class PersonsComponent implements OnInit {
     );
 
     this._personsService.createPerson(this.personCreateDto).subscribe(
-      (response: any) => console.log(response),
-      (error: any) => console.log(error)
+      (response: any) => {
+        this.refreshData();
+        },
+      (error: any) => console.error('Error creating:', error)
     );
-    this.refreshData();
-
   }
 
-  public updatePerson(email:string): void{
-    console.log(email);
-    this._router.navigate(['/personUpdate'], { state: { email: email } });
+  public updatePersonFormShow(email: string): void {
+    this._personsService.getPersonByEmail(email).subscribe(
+      (response: any) => {
+        this.personToUpdate = response;
+        this.updateShow = true;
+        if (this.personToUpdate) {
+          this.updatedName = this.personToUpdate.name;
+          this.updatedSurname = this.personToUpdate.surname;
+          this.updatedRole = this.personToUpdate.role;
+          this.updatedPhoneNumber = this.personToUpdate.phoneNumber;
+        }
+        this.refreshData();
+      },
+      (error: any) => console.error('Error fetching person:', error)
+    );
+  }
+
+  public updatePerson(): void {
+    console.log(this.personToUpdate);
   }
 
   public logout(): void {
     this._loginService.logout();
+  }
+
+  public hidePersonDetails():void {
+    this.onePerson = null;
   }
 }
