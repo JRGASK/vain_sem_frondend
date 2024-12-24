@@ -60,4 +60,8 @@ export class LoginComponent {
   public logout() {
     this._sessionService.user = undefined;
   }
+
+  public register(){
+    this._router.navigate(['/register']);
+  }
 }
