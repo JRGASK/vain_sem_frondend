@@ -1,0 +1,54 @@
+
+<div class="container">
+  <div class="login-header text-center">
+    <h2>Create</h2>
+    <p>Add new Person</p>
+  </div>
+  <div class="container mt-5">
+    <form  [formGroup]="createPersonFormGroup">
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input id="name" class="form-control" formControlName="name">
+      </div>
+
+      <div class="mb-3">
+        <label for="surname" class="form-label">Surname</label>
+        <input id="surname" class="form-control" formControlName="surname">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" class="form-control"  formControlName="email">
+      </div>
+
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" class="form-control" formControlName="password">
+      </div>
+
+
+      <div class="mb-3">
+        <label for="confirm_password" class="form-label">Confirm Password</label>
+        <input id="confirm_password" class="form-control" formControlName="confirmPassword">
+      </div>
+
+      <div class="mb-3">
+        <label for="phone_number" class="form-label">Phone Number</label>
+        <input id="phone_number" class="form-control" formControlName="phoneNumber">
+      </div>
+
+      <div class="mb-3">
+        <label for="rola" class="form-label">Role</label>
+        <select id="rola" name="rola" class="form-select" formControlName="role">
+          <option value="" disabled selected>Select a role</option>
+          <option value="CUSTOMER">CUSTOMER</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+      </div>
+
+      <button  class="btn btn-primary w-100"  [disabled]="!createPersonFormGroup.valid" (click)="createPerson()">Register</button>
+    </form>
+  </div>
+</div>

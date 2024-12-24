@@ -179,4 +179,7 @@ export class PersonsComponent implements OnInit {
     this.createdPhoneNumber = '';
   }
 
+  public create(){
+    this._router.navigate(['/createPerson']);
+  }
 }

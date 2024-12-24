@@ -2,6 +2,19 @@
 <div >
   <h1>Person</h1>
   <div class="container">
+
+    <div *ngIf="onePerson" class="mt-4 container mt-5">
+      <h3>Details of Selected Person</h3>
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-action"><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
+        <li class="list-group-item list-group-item-action"><strong>Meno:</strong> {{ onePerson.name || 'Not Available'}}</li>
+        <li class="list-group-item list-group-item-action"><strong>Priezvisko:</strong> {{ onePerson.surname ||'Not Available' }}</li>
+        <li class="list-group-item list-group-item-action"><strong>Telefón:</strong> {{ onePerson.phoneNumber || 'Not Available' }}</li>
+        <li class="list-group-item list-group-item-action"><strong>Rola:</strong> {{ onePerson.role || 'Not Available' }}</li>
+        <button type="button" class="btn btn-primary" (click)="hidePersonDetails()">HIDE</button>
+      </ul>
+    </div>
+
     <div *ngIf="users" class="container mt-5">
       <div class="table-container">
         <table border="1" class="user-table table table-hover">
@@ -19,7 +32,7 @@
             <td>{{ user.name }}</td>
             <td>{{ user.surname }}</td>
             <td>
-              <button type="button" class="btn btn-info" (click)="getPersonInfo(user)">Get</button>
+              <button type="button" class="btn btn-info" (click)="getPersonInfo(user)">Info</button>
               <button type="button" class="btn btn-primary"(click)="updatePersonFormShow(user.email)">Update</button>
               <button type="button" class="btn btn-danger" (click)="deletePerson(user)">Delete</button>
             </td>
@@ -29,23 +42,13 @@
         <p *ngIf="users.length === 0">Nie sú dostupné žiadne údaje.</p>
       </div>
 
-      <div *ngIf="onePerson" class="mt-4 container mt-5">
-        <h3>Details of Selected Person</h3>
-        <ul class="list-group">
-          <li class="list-group-item list-group-item-action"><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
-          <li class="list-group-item list-group-item-action"><strong>Meno:</strong> {{ onePerson.name || 'Not Available'}}</li>
-          <li class="list-group-item list-group-item-action"><strong>Priezvisko:</strong> {{ onePerson.surname ||'Not Available' }}</li>
-          <li class="list-group-item list-group-item-action"><strong>Telefón:</strong> {{ onePerson.phoneNumber || 'Not Available' }}</li>
-          <li class="list-group-item list-group-item-action"><strong>Rola:</strong> {{ onePerson.role || 'Not Available' }}</li>
-          <button type="button" class="btn btn-primary" (click)="hidePersonDetails()">HIDE</button>
-        </ul>
-      </div>
+
 
       <div *ngIf="updateShow" class="container mt-5">
         <h1 class="mb-4 text-center">Update a Person</h1>
         <form id="personUpdateForm" class="needs-validation">
           <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
+            <label for="nameUpdate" class="form-label">Name</label>
             <input
               type="text"
               id="nameUpdate"
@@ -56,7 +59,7 @@
             />
           </div>
           <div class="mb-3">
-            <label for="surname" class="form-label">Surname</label>
+            <label for="updateSurname" class="form-label">Surname</label>
             <input
               type="text"
               id="updateSurname"
@@ -67,7 +70,7 @@
             />
           </div>
           <div class="mb-3">
-            <label for="rola" class="form-label">Role</label>
+            <label for="updateRola" class="form-label">Role</label>
             <select id="updateRola" name="rola" class="form-select" [(ngModel)]="updatedRole">
               <option value="" disabled selected>Select a role</option>
               <option value="CUSTOMER">CUSTOMER</option>
@@ -75,7 +78,7 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <label for="updatePhoneNumber" class="form-label">Phone Number</label>
             <input
               type="tel"
               id="updatePhoneNumber"
@@ -87,80 +90,12 @@
           </div>
           <button type="submit" class="btn btn-primary w-100" [disabled]="isUpdateButtonDisabled" (click)="updatePerson()">Update Person</button>
         </form>
-      </div>
-    </div>
 
-      <div class="container mt-5">
-      <h1 class="mb-4 text-center">Create a Person</h1>
-      <form id="personForm" class="needs-validation">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input
-            type="email"
-            id="EMAIL"
-            name="email"
-            class="form-control"
-            placeholder="Enter your email"
-            [(ngModel)]="createdEmail"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="name" class="form-label">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            class="form-control"
-            placeholder="Enter your first name"
-            [(ngModel)]="createdName"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="surname" class="form-label">Surname</label>
-          <input
-            type="text"
-            id="surname"
-            name="surname"
-            class="form-control"
-            placeholder="Enter your last name"
-            [(ngModel)]="createdSurname"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            placeholder="Enter a secure password"
-            [(ngModel)]="createdPassword"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="rola" class="form-label">Role</label>
-          <select id="rola" name="rola" class="form-select" [(ngModel)]="createdRole">
-            <option value="" disabled selected>Select a role</option>
-            <option value="CUSTOMER">CUSTOMER</option>
-            <option value="ADMIN">ADMIN</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="phoneNumber" class="form-label">Phone Number</label>
-          <input
-            type="tel"
-            id="phoneNumber"
-            name="phoneNumber"
-            class="form-control"
-            placeholder="1234567890"
-            [(ngModel)]="createdPhoneNumber"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary w-100" [disabled]="isCreateButtonDisabled"  (click)="createPerson()">Create Person</button>
-      </form>
-    </div>
+      </div>
       <div class="container mt-5 mb-5">
         <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
+        <button type="button" class="btn btn-info" (click)="create()">Create</button>
       </div>
+    </div>
   </div>
 </div>

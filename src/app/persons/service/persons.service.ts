@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PersonCreateDto } from '../person/personCreateDto';
 import { PersonUpdateDto } from '../person/personUpdateDto';
+import { ICreatePerson } from '../../user/IUser';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class PersonsService {
     return this._http.delete(`http://localhost:8080/persons/person/${email}`);
   }
 
-  public createPerson(personCreateDto: PersonCreateDto):Observable<any> {
-    return this._http.post('http://localhost:8080/persons/person', personCreateDto );
+  public createPerson(createdPerson: ICreatePerson):Observable<any> {
+    return this._http.post('http://localhost:8080/persons/person', createdPerson);
   }
 
   public updatePerson(email: string, personUpdateDto: PersonUpdateDto): Observable<any> {

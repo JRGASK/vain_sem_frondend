@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SessionService } from '../session/session.service';
-import { User } from '../user/user';
+import { User } from '../../user/user';
 import { Router } from '@angular/router';
 
 export interface ILoginResponse {

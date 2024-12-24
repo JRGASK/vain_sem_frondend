@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ICustomer } from '../login/user/IUser';
 import { Router } from '@angular/router';
 import { RegisterService } from './service/register.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ICustomer } from '../user/IUser';
 
 @Component({
   selector: 'app-register',
