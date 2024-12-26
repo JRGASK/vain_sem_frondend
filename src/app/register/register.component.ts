@@ -1,10 +1,31 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterService } from './service/register.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, getLocaleTimeFormat } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ICustomer } from '../user/IUser';
+
+export const passwordMismatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+  return group.get('password')?.value !== group.get('confirmPassword')?.value ?
+    {
+      passwordMismatch: true
+    }
+    : null;
+}
+
+export const passwordComplexityValidator: ValidatorFn = (form: AbstractControl): ValidationErrors | null => {
+  const passwordPattern = RegExp("[a-z]")
+  return form.value.match(passwordPattern) ? null : {passwordComplexity : true}
+}
 
 @Component({
   selector: 'app-register',
@@ -32,15 +53,26 @@ export class RegisterComponent {
     ]),
     password: new FormControl('',[
       Validators.required,
+      passwordComplexityValidator,
       Validators.minLength(1),
     ]),
     confirmPassword: new FormControl('',
       [Validators.required,
       Validators.minLength(1)
     ])
-  });
+  },{ validators: passwordMismatchValidator});
 
   constructor(private _router:Router, private _registerService:RegisterService){}
+
+  public hasError(formControlName: string, error:string): boolean {
+    const formControl = this.registerFormGroup.get(formControlName);
+
+    if (!formControl) {
+      return false;
+    }
+
+    return formControl?.touched && formControl?.hasError(error);
+  }
 
   public register (){
     const registerCustomer: ICustomer = <ICustomer>{

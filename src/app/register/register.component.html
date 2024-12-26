@@ -9,30 +9,36 @@
     <form  [formGroup]="registerFormGroup">
 
       <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input id="name" class="form-control" formControlName="name">
+        <label for="name" class="form-label"  >Name</label>
+        <input id="name" class="form-control" type="text" placeholder="Name" formControlName="name" [ngClass]="{'error-input': hasError('name','required')}">
+        <div class="error-input" *ngIf="hasError('name','required')">Name is required</div>
       </div>
 
       <div class="mb-3">
         <label for="surname" class="form-label">Surname</label>
-        <input id="surname" class="form-control" formControlName="surname">
+        <input id="surname" class="form-control" type="text" placeholder="Surname" formControlName="surname" [ngClass]="{'error-input': hasError('surname','required')}">
+        <div class="error-input" *ngIf="hasError('surname','required')">Surname is required</div>
       </div>
 
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input id="email" class="form-control"  formControlName="email">
+        <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email" [ngClass]="{'error-input': hasError('email','required')}">
+        <div class="error-input" *ngIf="hasError('email','required')">Email is required</div>
       </div>
 
 
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input id="password" class="form-control" formControlName="password">
+        <input id="password" class="form-control" type="text" placeholder="Password" formControlName="password" [ngClass]="{'error-input': hasError('password','required')}">
+        <div class="error-input" *ngIf="hasError('password','required')">Password is required</div>
+        <div class="error-input" *ngIf="hasError('password','passwordComplexity')">Password is not safe</div>
       </div>
 
 
       <div class="mb-3">
         <label for="confirm_password" class="form-label">Confirm Password</label>
-        <input id="confirm_password" class="form-control" formControlName="confirmPassword">
+        <input id="confirm_password" class="form-control" type="text" placeholder="Confirm Password" formControlName="confirmPassword" [ngClass]="{'error-input': hasError('confirmPassword','required')}">
+        <div class="error-input" *ngIf="registerFormGroup.hasError('passwordMismatch')">Password not mach</div>
       </div>
 
       <button  class="btn btn-primary w-100"  [disabled]="!registerFormGroup.valid" (click)="register()">Register</button>

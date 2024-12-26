@@ -2,3 +2,8 @@
 .error {
     border: 1px solid red;
 }
+
+.error-input {
+    border-color: #dc3545 !important;
+    color: red;
+}

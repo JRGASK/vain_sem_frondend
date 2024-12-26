@@ -14,6 +14,7 @@
         <label for="password" class="form-label">Heslo</label>
         <input type="password" class="form-control" name="password" id="password" placeholder="Zadajte svoje heslo" [ngClass]="hasErrors ? 'error' : ''" [(ngModel)]="password" required>
       </div>
+      <div class="error-input" *ngIf="hasErrors" >Invalide Email or Password</div>
       <button type="submit" class="btn btn-primary w-100 " *ngIf="isLoginRendered" [disabled]="isLogoutDisabled" (click)="login()">Prihlásiť sa</button>
       <button type="submit" class="btn btn-primary w-100 " (click)="register()">Registracia</button>
     </form>

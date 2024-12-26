@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { PersonsService } from '../persons/service/persons.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ICreatePerson } from '../user/IUser';
+import { passwordComplexityValidator, passwordMismatchValidator } from '../register/register.component';
 
 @Component({
   selector: 'app-creare-person',
@@ -31,6 +37,7 @@ export class CreatePersonComponent {
     ]),
     password: new FormControl('',[
       Validators.required,
+      passwordComplexityValidator,
       Validators.minLength(1),
     ]),
     confirmPassword: new FormControl('',
@@ -43,9 +50,19 @@ export class CreatePersonComponent {
     role: new FormControl('',
       [Validators.required,
       ]),
-  })
+  }, { validators: passwordMismatchValidator})
 
   constructor(private _router:Router, private _personService:PersonsService){}
+
+  public hasError(formControlName: string, error:string): boolean {
+    const formControl = this.createPersonFormGroup.get(formControlName);
+
+    if (!formControl) {
+      return false;
+    }
+
+    return formControl?.touched && formControl?.hasError(error);
+  }
 
   public createPerson(){
     const createdPerson : ICreatePerson = <ICreatePerson> {
