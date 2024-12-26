@@ -56,5 +56,9 @@ export class MainComponent {
     this._router.navigate(['/persons']);
   }
 
+  public toMainCarPage() {
+    this._router.navigate(['/mainCarPage']);
+  }
+
   protected readonly navigator = navigator;
 }
