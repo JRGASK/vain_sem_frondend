@@ -51,7 +51,8 @@ export class LoginComponent {
       .login(this.username, this.password)
       .subscribe(() => {
         this.hasErrors = false;
-        this._router.navigate(['/persons'])
+        this._router.navigate(['/persons']);
+        //this.userInfo();
       }, () => {
         this.hasErrors = true;
       });
@@ -63,5 +64,10 @@ export class LoginComponent {
 
   public register(){
     this._router.navigate(['/register']);
+  }
+
+  public userInfo(){
+    console.log(this._sessionService.hasUser);
+    console.log(this._sessionService.user?.name);
   }
 }

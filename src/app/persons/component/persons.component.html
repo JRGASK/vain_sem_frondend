@@ -4,7 +4,7 @@
   <div class="container">
 
     <div *ngIf="onePerson" class="container mt-5">
-      <h3>Details of Selected Person</h3>
+      <h3> {{ onePerson.name || 'Not Available'}} {{ onePerson.surname || 'Not Available'}}  details</h3>
       <ul class="list-group">
         <li class="list-group-item list-group-item-action"><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
         <li class="list-group-item list-group-item-action"><strong>Name:</strong> {{ onePerson.name || 'Not Available'}}</li>

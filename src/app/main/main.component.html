@@ -1,5 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-color-purple">
+  <div class="container">
+    <a class="navbar-brand" href="#">FRI_GARAGE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
 
-<p>{{user?.name}}</p>
-<button (click)="showUserName()">TEST</button>
+        <li class="nav-item">
+          <a class="nav-link" href="">Cars</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="">Motobikes</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="">About</a>
+        </li>
+
+        <div *ngIf="isLogin()">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin Menu
+            </a>
+            <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
+              <li><button  *ngIf="isLogin()" class="dropdown-item "  (click)="toCreateAPerson()">Create Person</button></li>
+              <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfPersons()">List of person</button></li>
+            </ul>
+          </li>
+        </div>
+
+        <div>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          </a>
+          <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
+            <li><button  *ngIf="!isLogin()" class="dropdown-item "  (click)="toLogin()">Log In</button></li>
+            <li><button  *ngIf="!isLogin()" class="dropdown-item " (click)="toRegister()">Register</button></li>
+            <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="logOut()">Log Out</button></li>
+          </ul>
+        </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <router-outlet></router-outlet>
