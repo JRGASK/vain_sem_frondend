@@ -4,10 +4,10 @@ import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { LoginService } from '../../login/service/login.service';
 import { PersonsService } from '../service/persons.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PersonCreateDto } from '../person/personCreateDto';
-import { SessionService } from '../../login/session/session.service';
 import { Router } from '@angular/router';
 import { PersonUpdateDto } from '../person/personUpdateDto';
+import { User } from '../../user/user';
+
 
 //TODO spravit login get
 //TODO spravit put
@@ -16,7 +16,7 @@ import { PersonUpdateDto } from '../person/personUpdateDto';
   selector: 'app-persons',
   standalone: true,
   imports: [HttpClientModule, JsonPipe, NgIf, ReactiveFormsModule, FormsModule,CommonModule],
-  providers: [LoginService, PersonsService,SessionService],
+  providers: [PersonsService],
   templateUrl: './persons.component.html',
   styleUrl: './persons.component.css',
 })
@@ -31,24 +31,12 @@ export class PersonsComponent implements OnInit {
 
   public email = '';
 
-  private personCreateDto: any;
-
   private personUpdateDto: any;
 
   public users: any[] = [];
 
-  public hasErro = false;
+  private _currentUser: User | undefined = undefined;
 
-  public erroMesage = '';
-
-  public createdEmail = '';
-  public createdName = '';
-  public createdSurname = '';
-  public createdPassword = '';
-  public createdRole = '';
-  public createdPhoneNumber = '';
-
-  public updatedEmail = '';
   public updatedName = '';
   public updatedSurname = '';
   public updatedRole = '';
@@ -60,9 +48,11 @@ export class PersonsComponent implements OnInit {
     private _personsService: PersonsService,
     private _loginService: LoginService,
     private _router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
   }
+
+
 
   public ngOnInit(): void {
     this.loadData();
@@ -104,25 +94,6 @@ export class PersonsComponent implements OnInit {
     );
   }
 
-  public createPerson(): void {
-    this.personCreateDto = new PersonCreateDto(
-      this.createdEmail,
-      this.createdName,
-      this.createdSurname,
-      this.createdPassword,
-      this.createdRole,
-      this.createdPhoneNumber
-    );
-
-    this._personsService.createPerson(this.personCreateDto).subscribe(
-      (response: any) => {
-        this.refreshData();
-        this.resetCreate();
-        },
-      (error: any) => console.error('Error creating:', error)
-    );
-  }
-
   public updatePersonFormShow(email: string): void {
     this._personsService.getPersonByEmail(email).subscribe(
       (response: any) => {
@@ -158,25 +129,9 @@ export class PersonsComponent implements OnInit {
     this.onePerson = null;
   }
 
-  public get isCreateButtonDisabled(): boolean {
-    return this.createdName.length === 0 || this.createdSurname.length === 0 ||
-            this.createdPassword.length === 0 || this.createdRole.length === 0 ||
-            this.createdPhoneNumber.length === 0;
-
-  }
-
   public get isUpdateButtonDisabled(): boolean {
     return this.updatedName.length === 0 || this.updatedSurname.length === 0 ||
             this.updatedRole.length === 0 || this.updatedPhoneNumber.length === 0;
-  }
-
-  public resetCreate(): void {
-    this.createdEmail = '';
-    this.createdName = '';
-    this.createdSurname = '';
-    this.createdPassword = '';
-    this.createdRole = '';
-    this.createdPhoneNumber = '';
   }
 
   public create(){

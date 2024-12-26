@@ -9,7 +9,7 @@ import { ICreatePerson } from '../user/IUser';
 @Component({
   selector: 'app-creare-person',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,HttpClientModule],
+  imports: [CommonModule,ReactiveFormsModule,HttpClientModule],
   providers: [PersonsService],
   templateUrl: './create-person.component.html',
   styleUrl: './create-person.component.css'

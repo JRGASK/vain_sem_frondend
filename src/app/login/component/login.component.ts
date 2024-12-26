@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   standalone: true,
   imports: [CommonModule, FormsModule,HttpClientModule],
-  providers: [LoginService, SessionService],
+  providers: [LoginService],
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
