@@ -5,8 +5,6 @@ import { LoginService } from '../../login/service/login.service';
 import { PersonsService } from '../service/persons.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PersonUpdateDto } from '../person/personUpdateDto';
-import { User } from '../../user/user';
 import { IUpdateUser } from '../../user/IUser';
 import { passwordComplexityValidator, passwordMismatchValidator } from '../../register/register.component';
 
