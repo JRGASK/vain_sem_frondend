@@ -15,3 +15,11 @@ export interface ICreatePerson {
   role: string;
   phoneNumber:string
 }
+
+export interface IUpdateUser {
+
+  name :string
+  surname: string
+  role: string;
+  phoneNumber:string
+}

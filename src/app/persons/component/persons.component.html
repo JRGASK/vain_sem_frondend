@@ -3,7 +3,7 @@
   <h1>Person</h1>
   <div class="container">
 
-    <div *ngIf="onePerson" class="container mt-5">
+    <div *ngIf="showInfoList" class="container mt-5">
       <h3> {{ onePerson.name || 'Not Available'}} {{ onePerson.surname || 'Not Available'}}  details</h3>
       <ul class="list-group">
         <li class="list-group-item list-group-item-action"><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
@@ -15,7 +15,49 @@
       </ul>
     </div>
 
-    <div *ngIf="users" class="container mt-5">
+    <div class="container" *ngIf="showUpdateForm">
+      <div class="login-header text-center">
+        <h2>Update</h2>
+        <p>Update person</p>
+      </div>
+      <div class="container mt-4">
+        <form  [formGroup]="updatePersonFormGroup">
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input id="name" class="form-control" formControlName="name" type="text" placeholder="Name" [ngClass]="{'error-input': hasError('name','required')}">
+            <div class="error-input" *ngIf="hasError('name','required')">Name is required</div>
+
+          </div>
+
+          <div class="mb-3">
+            <label for="surname" class="form-label">Surname</label>
+            <input id="surname" class="form-control" type="text" placeholder="Surname" formControlName="surname" [ngClass]="{'error-input': hasError('surname','required')}">
+            <div class="error-input" *ngIf="hasError('surname','required')">Surname is required</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="phone_number" class="form-label">Phone Number</label>
+            <input id="phone_number" class="form-control" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{'error-input': hasError('phoneNumber','required')}">
+            <div class="error-input" *ngIf="hasError('phoneNumber','required')">Phone number is required</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="rola" class="form-label">Role</label>
+            <select id="rola" name="rola" class="form-select" formControlName="role" [ngClass]="{'error-input': hasError('role','required')}">
+              <option value="" disabled selected>Select a role</option>
+              <option value="CUSTOMER">CUSTOMER</option>
+              <option value="ADMIN">ADMIN</option>
+            </select>
+            <div class="error-input" *ngIf="hasError('role','required')">Role is required</div>
+          </div>
+
+          <button  class="btn btn-primary w-100"  [disabled]="!updatePersonFormGroup.valid" (click)="updatePerson()">Update</button>
+        </form>
+      </div>
+    </div>
+
+    <div *ngIf="showPersonTable" class="container mt-5">
       <div class="table-container">
         <table border="1" class="user-table table table-hover">
           <thead>
@@ -24,6 +66,9 @@
             <th>Meno</th>
             <th>Priezvisko</th>
             <th>Akcie</th>
+            <th></th>
+            <th></th>
+            <th *ngIf="deleteConfirm"></th>
           </tr>
           </thead>
           <tbody>
@@ -33,8 +78,16 @@
             <td>{{ user.surname }}</td>
             <td>
               <button type="button" class="btn btn-info" (click)="getPersonInfo(user)">Info</button>
+            </td>
+            <td>
               <button type="button" class="btn btn-primary"(click)="updatePersonFormShow(user.email)">Update</button>
-              <button type="button" class="btn btn-danger" (click)="deletePerson(user)">Delete</button>
+            </td>
+            <td >
+              <button *ngIf="!deleteConfirm" type="button" class="btn btn-danger" (click)="deleteConfirmation(true)">Delete</button>
+              <button *ngIf="deleteConfirm" type="button" class="btn btn-primary" (click)="deletePerson(user)">YES</button>
+            </td>
+            <td *ngIf="deleteConfirm">
+              <button type="button" class="btn btn-danger" (click)="deleteConfirmation(false)">NO</button>
             </td>
           </tr>
           </tbody>
@@ -42,60 +95,10 @@
         <p *ngIf="users.length === 0">Nie sú dostupné žiadne údaje.</p>
       </div>
 
-
-
-      <div *ngIf="updateShow" class="container mt-5">
-        <h1 class="mb-4 text-center">Update a Person</h1>
-        <form id="personUpdateForm" class="needs-validation">
-          <div class="mb-3">
-            <label for="nameUpdate" class="form-label">Name</label>
-            <input
-              type="text"
-              id="nameUpdate"
-              name="name"
-              class="form-control"
-              placeholder="Enter your first name"
-              [(ngModel)]="updatedName"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="updateSurname" class="form-label">Surname</label>
-            <input
-              type="text"
-              id="updateSurname"
-              name="surname"
-              class="form-control"
-              placeholder="Enter your last name"
-              [(ngModel)]="updatedSurname"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="updateRola" class="form-label">Role</label>
-            <select id="updateRola" name="rola" class="form-select" [(ngModel)]="updatedRole">
-              <option value="" disabled selected>Select a role</option>
-              <option value="CUSTOMER">CUSTOMER</option>
-              <option value="ADMIN">ADMIN</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="updatePhoneNumber" class="form-label">Phone Number</label>
-            <input
-              type="tel"
-              id="updatePhoneNumber"
-              name="phoneNumber"
-              class="form-control"
-              placeholder="1234567890"
-              [(ngModel)]="updatedPhoneNumber"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary w-100" [disabled]="isUpdateButtonDisabled" (click)="updatePerson()">Update Person</button>
-        </form>
-
-      </div>
-      <div class="container mt-5 mb-5">
-        <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
-        <button type="button" class="btn btn-info" (click)="create()">Create</button>
-      </div>
+    </div>
+    <div class="container mt-5 mb-5">
+      <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
+      <button type="button" class="btn btn-info" (click)="create()">Create</button>
     </div>
   </div>
 </div>

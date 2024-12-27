@@ -3,10 +3,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { LoginService } from '../../login/service/login.service';
 import { PersonsService } from '../service/persons.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PersonUpdateDto } from '../person/personUpdateDto';
 import { User } from '../../user/user';
+import { IUpdateUser } from '../../user/IUser';
+import { passwordComplexityValidator, passwordMismatchValidator } from '../../register/register.component';
 
 
 //TODO spravit login get
@@ -21,28 +23,40 @@ import { User } from '../../user/user';
   styleUrl: './persons.component.css',
 })
 export class PersonsComponent implements OnInit {
-  public persons: any;
 
   public onePerson: any;
 
   public personToUpdate: any;
 
-  public updateShow = false;
-
   public email = '';
-
-  private personUpdateDto: any;
 
   public users: any[] = [];
 
-  private _currentUser: User | undefined = undefined;
+  public showUpdateForm = false;
 
-  public updatedName = '';
-  public updatedSurname = '';
-  public updatedRole = '';
-  public updatedPhoneNumber = '';
+  public showPersonTable = true;
 
-  public reload = false;
+  public showInfoList = false;
+
+  public deleteConfirm = false;
+
+  public updatePersonFormGroup = new FormGroup({
+    name: new FormControl('',[
+      Validators.required,
+      Validators.minLength(1),
+    ]),
+    surname: new FormControl('',[
+      Validators.required,
+      Validators.minLength(1),
+    ]),
+    phoneNumber: new FormControl('',
+      [Validators.minLength(1)
+      ]),
+    role: new FormControl('',
+      [Validators.required,
+      ]),
+  }, { validators: passwordMismatchValidator})
+
 
   constructor(
     private _personsService: PersonsService,
@@ -51,8 +65,6 @@ export class PersonsComponent implements OnInit {
     private cdr: ChangeDetectorRef,
   ) {
   }
-
-
 
   public ngOnInit(): void {
     this.loadData();
@@ -71,16 +83,13 @@ export class PersonsComponent implements OnInit {
     );
   }
 
-  public getPersonByEmail(): void {
-    this._personsService.getPersonByEmail(this.email).subscribe(
-      (response: any) => (this.onePerson = response),
-      (error: any) => console.log(error)
-    );
-  }
-
   public getPersonInfo(user: any): void {
     this._personsService.getPersonByEmail(user.email).subscribe(
-      (response: any) => (this.onePerson = response),
+      (response: any) => {
+        this.onePerson = response
+        this.showInfoList = true;
+        this.showPersonTable = false;
+      },
       (error: any) => console.log(error)
     );
   }
@@ -88,23 +97,33 @@ export class PersonsComponent implements OnInit {
   public deletePerson(users: any): void {
     this._personsService.deletePerson(users.email).subscribe(
       (response: any) => {
+        this.deleteConfirm = false;
         this.refreshData();
       },
       (error: any) => console.error('Error deleting:', error)
     );
   }
 
+  public deleteConfirmation(confirm : boolean){
+    this.deleteConfirm = confirm;
+}
+
   public updatePersonFormShow(email: string): void {
+
     this._personsService.getPersonByEmail(email).subscribe(
       (response: any) => {
         this.personToUpdate = response;
-        this.updateShow = true;
         if (this.personToUpdate) {
-          this.updatedName = this.personToUpdate.name;
-          this.updatedSurname = this.personToUpdate.surname;
-          this.updatedRole = this.personToUpdate.role;
-          this.updatedPhoneNumber = this.personToUpdate.phoneNumber;
+
+          this.updatePersonFormGroup.patchValue({
+            name: this.personToUpdate.name || '',
+            surname: this.personToUpdate.surname || '',
+            role: this.personToUpdate.role || '',
+            phoneNumber: this.personToUpdate.phoneNumber || ''
+          });
         }
+        this.showUpdateForm = true;
+        this.showPersonTable = false;
         this.refreshData();
       },
       (error: any) => console.error('Error fetching person:', error)
@@ -113,28 +132,49 @@ export class PersonsComponent implements OnInit {
 
   public updatePerson(): void {
     console.log(this.personToUpdate);
-    this.personUpdateDto = new PersonUpdateDto(this.updatedName, this.updatedSurname, this.updatedRole, this.updatedPhoneNumber);
-    this._personsService.updatePerson(this.personToUpdate.email, this.personUpdateDto).subscribe((response: any) => {
+    const updatedPerson : IUpdateUser = <IUpdateUser> {
+      name: this.updatePersonFormGroup.value.name,
+      surname: this.updatePersonFormGroup.value.surname,
+      role: this.updatePersonFormGroup.value.role,
+      phoneNumber: this.updatePersonFormGroup.value.phoneNumber
+    }
+
+    this._personsService.updatePerson(this.personToUpdate.email, updatedPerson).subscribe((response: any) => {
         this.refreshData();
+        this.showUpdateForm = false;
+        this.showPersonTable = true;
       },
       (error: any) => console.error('Error creating:', error)
     );
+  }
+
+  public hasError(formControlName: string, error:string): boolean {
+    const formControl = this.updatePersonFormGroup.get(formControlName);
+
+    if (!formControl) {
+      return false;
+    }
+
+    return formControl?.touched && formControl?.hasError(error);
+  }
+
+  public hidePersonDetails():void {
+    this.onePerson = null;
+    this.showInfoList = false;
+    this.showPersonTable = true;
+  }
+
+
+
+
+
+  public create(){
+    this._router.navigate(['/createPerson']);
   }
 
   public logout(): void {
     this._loginService.logout();
   }
 
-  public hidePersonDetails():void {
-    this.onePerson = null;
-  }
 
-  public get isUpdateButtonDisabled(): boolean {
-    return this.updatedName.length === 0 || this.updatedSurname.length === 0 ||
-            this.updatedRole.length === 0 || this.updatedPhoneNumber.length === 0;
-  }
-
-  public create(){
-    this._router.navigate(['/createPerson']);
-  }
 }

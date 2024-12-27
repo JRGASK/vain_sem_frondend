@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PersonUpdateDto } from '../person/personUpdateDto';
-import { ICreatePerson } from '../../user/IUser';
+import { ICreatePerson, IUpdateUser } from '../../user/IUser';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,7 @@ export class PersonsService {
     return this._http.post('http://localhost:8080/persons/person', createdPerson);
   }
 
-  public updatePerson(email: string, personUpdateDto: PersonUpdateDto): Observable<any> {
-    return this._http.put(`http://localhost:8080/persons/person/${email}`, personUpdateDto);
+  public updatePerson(email: string, updatedPerson: IUpdateUser): Observable<any> {
+    return this._http.put(`http://localhost:8080/persons/person/${email}`, updatedPerson);
   }
 }
