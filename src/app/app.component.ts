@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 @Component({
   standalone: true,
   imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule],
-  providers: [LoginService],
+  providers: [LoginService,HttpClientModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

@@ -19,7 +19,7 @@
           <a class="nav-link" href="">About</a>
         </li>
 
-        <div *ngIf="isLogin()">
+        <div *ngIf="isAdmin()">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Admin Menu
@@ -34,7 +34,7 @@
         <div>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ currentUser?.email || 'Not Available'}}
+            {{ currentUser?.email || 'More'}}
           </a>
           <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
             <li><button  *ngIf="!isLogin()" class="dropdown-item "  (click)="toLogin()">Log In</button></li>

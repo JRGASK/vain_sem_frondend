@@ -22,7 +22,6 @@ export class MainComponent {
   ) {
     effect(() => {
       this._currentUser = this._loginService.currentUser();
-      console.log(this._currentUser?.email)
     });
   }
 
@@ -38,8 +37,9 @@ export class MainComponent {
     return !!this.currentUser;
   }
 
-  public showUserName() {
-    console.log(this._currentUser?.name);
+  public isAdmin():boolean {
+    console.log(this.currentUser?.role);
+    return this.currentUser?.role === 'ADMIN';
   }
 
   public toRegister(){
