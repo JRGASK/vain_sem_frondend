@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../service/login.service';
+import { LoginService } from '../../auth/login.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { SessionService } from '../session/session.service';
 import { Router } from '@angular/router';
 
 
 @Component({
   standalone: true,
   imports: [CommonModule, FormsModule,HttpClientModule],
-  providers: [LoginService],
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -22,7 +20,7 @@ export class LoginComponent {
 
   private _hasError = false;
 
-  constructor(private _loginService: LoginService, private _sessionService: SessionService, private _router:Router) {
+  constructor(private _loginService: LoginService, private _router:Router) {
   }
 
   public get isLoginDisabled(): boolean {
@@ -30,11 +28,11 @@ export class LoginComponent {
   }
 
   public get isLoginRendered(): boolean {
-    return !this._sessionService.hasUser;
+    return !!this._loginService.currentUser;
   }
 
   public get isLogoutDisabled(): boolean {
-    return this._sessionService.hasUser;
+    return !this._loginService.currentUser;
   }
 
 
@@ -59,7 +57,7 @@ export class LoginComponent {
   }
 
   public logout() {
-    this._sessionService.user = undefined;
+    this._loginService.logout();
   }
 
   public register(){
@@ -67,7 +65,7 @@ export class LoginComponent {
   }
 
   public userInfo(){
-    console.log(this._sessionService.hasUser);
-    console.log(this._sessionService.user?.name);
+    console.log(!!this._loginService.currentUser);
+    console.log(this._loginService.currentUser?.name);
   }
 }

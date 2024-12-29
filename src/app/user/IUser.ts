@@ -23,3 +23,11 @@ export interface IUpdateUser {
   role: string;
   phoneNumber:string
 }
+
+export interface IUser {
+  name :string
+  surname: string
+  email:string
+  role: string
+
+}

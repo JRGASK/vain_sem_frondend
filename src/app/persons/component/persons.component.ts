@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
-import { LoginService } from '../../login/service/login.service';
+import { LoginService } from '../../auth/login.service';
 import { PersonsService } from '../service/persons.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -161,10 +161,6 @@ export class PersonsComponent implements OnInit {
     this.showInfoList = false;
     this.showPersonTable = true;
   }
-
-
-
-
 
   public create(){
     this._router.navigate(['/createPerson']);

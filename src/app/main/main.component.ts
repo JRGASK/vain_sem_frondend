@@ -1,31 +1,41 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { SessionService } from '../login/session/session.service';
-import { User } from '../user/user';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../login/service/login.service';
+import { LoginService } from '../auth/login.service';
+import { IUser } from '../user/IUser';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule,HttpClientModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
 })
 export class MainComponent {
-  public  _currentUser: User | undefined;
-  public  email: string | undefined = '';
+  private  _currentUser: IUser | undefined;
 
   constructor(
     private _router: Router,
-    private _sessionService: SessionService,
     private _loginService: LoginService,
   ) {
-
+    effect(() => {
+      this._currentUser = this._loginService.currentUser();
+      console.log(this._currentUser?.email)
+    });
   }
 
-  public get user() {
+  public get currentUser() {
     return this._currentUser;
+  }
+
+  public set currentUser(user:IUser |undefined) {
+     this._currentUser = user;
+  }
+
+  public isLogin(): boolean {
+    return !!this.currentUser;
   }
 
   public showUserName() {
@@ -38,10 +48,6 @@ export class MainComponent {
 
   public toLogin(){
     this._router.navigate(['/login']);
-  }
-
-  public isLogin(): boolean {
-    return this._sessionService.hasUser
   }
 
   public logOut() {
@@ -61,4 +67,6 @@ export class MainComponent {
   }
 
   protected readonly navigator = navigator;
+
+
 }
