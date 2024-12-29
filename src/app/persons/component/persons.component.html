@@ -1,18 +1,22 @@
 <!-- niektoré komponenty boli prevzané s bootstrapu a upravené pre moje potreby -->
 <div >
-  <h1>Person</h1>
   <div class="container">
-
-    <div *ngIf="showInfoList" class="container mt-5">
-      <h3> {{ onePerson.name || 'Not Available'}} {{ onePerson.surname || 'Not Available'}}  details</h3>
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-action"><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
-        <li class="list-group-item list-group-item-action"><strong>Name:</strong> {{ onePerson.name || 'Not Available'}}</li>
-        <li class="list-group-item list-group-item-action"><strong>Surname:</strong> {{ onePerson.surname ||'Not Available' }}</li>
-        <li class="list-group-item list-group-item-action"><strong>Phone Number:</strong> {{ onePerson.phoneNumber || 'Not Available' }}</li>
-        <li class="list-group-item list-group-item-action"><strong>Role:</strong> {{ onePerson.role || 'Not Available' }}</li>
-        <button type="button" class="btn btn-primary" (click)="hidePersonDetails()">HIDE</button>
-      </ul>
+    <div *ngIf="showInfoList" class="card border-color-purple">
+        <div class="card-header bg-color-gold">
+          <h3 class="card-title"> {{ onePerson.name || 'Not Available'}} {{ onePerson.surname || 'Not Available'}}  details</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-action "><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
+            <li class="list-group-item list-group-item-action"><strong>Name:</strong> {{ onePerson.name || 'Not Available'}}</li>
+            <li class="list-group-item list-group-item-action"><strong>Surname:</strong> {{ onePerson.surname ||'Not Available' }}</li>
+            <li class="list-group-item list-group-item-action"><strong>Phone Number:</strong> {{ onePerson.phoneNumber || 'Not Available' }}</li>
+            <li class="list-group-item list-group-item-action"><strong>Role:</strong> {{ onePerson.role || 'Not Available' }}</li>
+            </ul>
+        </div>
+        <div class="card-footer bg-color-gold  ">
+          <button type="button" class="btn btn-AU w-100 " (click)="hidePersonDetails()">HIDE</button>
+        </div>
     </div>
 
     <div class="container" *ngIf="showUpdateForm">
@@ -59,7 +63,7 @@
 
     <div *ngIf="showPersonTable" class="container mt-5">
       <div class="table-container">
-        <table border="1" class="user-table table table-hover">
+        <table border="1" class="table table-striped table table-hover">
           <thead>
           <tr>
             <th>Email</th>
