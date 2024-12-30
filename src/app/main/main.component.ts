@@ -66,6 +66,10 @@ export class MainComponent {
     this._router.navigate(['/mainCarPage']);
   }
 
+  public toMyAccount(){
+    this._router.navigate(['/myAccountInfo']);
+  }
+
   protected readonly navigator = navigator;
 
 

@@ -39,6 +39,7 @@
           <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
             <li><button  *ngIf="!isLogin()" class="dropdown-item "  (click)="toLogin()">Log In</button></li>
             <li><button  *ngIf="!isLogin()" class="dropdown-item " (click)="toRegister()">Register</button></li>
+            <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toMyAccount()">My Account</button></li>
             <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="logOut()">Log Out</button></li>
           </ul>
         </li>

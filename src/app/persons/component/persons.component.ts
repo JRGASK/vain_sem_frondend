@@ -129,7 +129,6 @@ export class PersonsComponent implements OnInit {
   }
 
   public updatePerson(): void {
-    console.log(this.personToUpdate);
     const updatedPerson : IUpdateUser = <IUpdateUser> {
       name: this.updatePersonFormGroup.value.name,
       surname: this.updatePersonFormGroup.value.surname,
@@ -161,14 +160,4 @@ export class PersonsComponent implements OnInit {
     this.showInfoList = false;
     this.showPersonTable = true;
   }
-
-  public create(){
-    this._router.navigate(['/createPerson']);
-  }
-
-  public logout(): void {
-    this._loginService.logout();
-  }
-
-
 }

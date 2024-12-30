@@ -31,3 +31,10 @@ export interface IUser {
   role: string
 
 }
+
+export interface IUpdateMyAcountUser {
+  name :string
+  surname: string
+  email:string
+  phoneNumber:string;
+}

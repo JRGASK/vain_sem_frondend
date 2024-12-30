@@ -8,6 +8,7 @@ import { MainComponent } from './main/main.component';
 import { MainCarPageComponent } from './pages/main-car-page/main-car-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { RoleGuard } from '../role.guard';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 export const appRoutes: Route[] = [
   { path: 'login', component: LoginComponent },
@@ -17,5 +18,6 @@ export const appRoutes: Route[] = [
   { path: 'persons', component: PersonsComponent, canActivate: [AuthGuard,RoleGuard] },
   { path: 'createPerson', component: CreatePersonComponent, canActivate: [AuthGuard,RoleGuard]},
   { path: 'main', component: MainComponent, canActivate: [AuthGuard,RoleGuard]},
+  { path: 'myAccountInfo', component: MyAccountComponent, canActivate: [AuthGuard]},
   { path: '',   redirectTo: '/mainPage', pathMatch: 'full' },
 ];
