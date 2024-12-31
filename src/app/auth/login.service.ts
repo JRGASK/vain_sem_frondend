@@ -3,6 +3,7 @@ import { Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { IUser } from '../user/IUser';
+import { ErrorService } from '../error/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class LoginService{
 
   private readonly _currentUser: WritableSignal<IUser | undefined> = signal<IUser | undefined>(undefined);
 
-  constructor(private _http: HttpClient, private _router: Router) {
+  constructor(private _http: HttpClient, private _router: Router, private _errorService:ErrorService) {
   }
 
   public login(username: string, password: string): Observable<any> {
@@ -22,7 +23,7 @@ export class LoginService{
     return this._http.post<IUser>('http://localhost:8080/login',{}, {headers: headers}).pipe(
       tap(() => sessionStorage.setItem('token', btoa(username + ':' + password))),
       tap((user: IUser) => this._currentUser.set(user)),
-      tap((user) => sessionStorage.setItem('user', JSON.stringify(user))
+      tap((user) => sessionStorage.setItem('user', JSON.stringify(user)),
     ));
   }
 

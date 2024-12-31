@@ -6,6 +6,7 @@ import { IUpdateMyAcountUser, IUpdateUser, IUser } from '../user/IUser';
 import { PersonsService } from '../persons/service/persons.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ErrorService } from '../error/error.service';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class MyAccountComponent {
       Validators.minLength(1)]),
   });
 
-  constructor(private _loginService: LoginService, private _personService:PersonsService, private _router:Router) {
+  constructor(private _loginService: LoginService, private _personService:PersonsService, private _router:Router, private _errorService:ErrorService){
     effect(() => {
       this._currentUser = this._loginService.currentUser();
       this.getUserData();
@@ -64,7 +65,7 @@ export class MyAccountComponent {
       name: this.updateMyAccountGroup.value.name,
       surname: this.updateMyAccountGroup.value.surname,
       phoneNumber: this.updateMyAccountGroup.value.phoneNumber,
-      role: 'CUSTOMER'
+      role: this._currentUser?.role
     }
 
     if (this._currentUser){
@@ -73,7 +74,9 @@ export class MyAccountComponent {
           this.showUpdateForm = false;
           this.showMyAcount = true;
         },
-        (error: any) => console.error('Error creating:', error)
+        (error: any) => {
+          this._errorService.setError = error.error.message;
+        }
       );
     }
   }

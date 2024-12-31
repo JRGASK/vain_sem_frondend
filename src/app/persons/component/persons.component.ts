@@ -1,16 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
-import { LoginService } from '../../auth/login.service';
 import { PersonsService } from '../service/persons.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUpdateUser } from '../../user/IUser';
-import { passwordComplexityValidator, passwordMismatchValidator } from '../../register/register.component';
-
-
-//TODO spravit login get
-//TODO spravit put
+import { ErrorService } from '../../error/error.service';
 
 @Component({
   selector: 'app-persons',
@@ -60,6 +55,7 @@ export class PersonsComponent implements OnInit {
     private _personsService: PersonsService,
     private _router: Router,
     private cdr: ChangeDetectorRef,
+    private _errorService:ErrorService
   ) {
   }
 
@@ -86,6 +82,7 @@ export class PersonsComponent implements OnInit {
         this.onePerson = response
         this.showInfoList = true;
         this.showPersonTable = false;
+        this._errorService.setError = "get";
       },
       (error: any) => console.log(error)
     );
@@ -96,6 +93,7 @@ export class PersonsComponent implements OnInit {
       (response: any) => {
         this.deleteConfirm = false;
         this.refreshData();
+        this._errorService.setError = "delete";
       },
       (error: any) => console.error('Error deleting:', error)
     );
@@ -123,7 +121,7 @@ export class PersonsComponent implements OnInit {
         this.showPersonTable = false;
         this.refreshData();
       },
-      (error: any) => console.error('Error fetching person:', error)
+      (error: any) => this._errorService.setError = error.error
     );
   }
 
@@ -140,7 +138,9 @@ export class PersonsComponent implements OnInit {
         this.showUpdateForm = false;
         this.showPersonTable = true;
       },
-      (error: any) => console.error('Error creating:', error)
+      (error: any) => {
+        this._errorService.setError = error.error.message;
+      },
     );
   }
 

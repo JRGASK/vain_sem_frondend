@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ICreatePerson } from '../user/IUser';
 import { passwordComplexityValidator, passwordMismatchValidator } from '../register/register.component';
+import { ErrorService } from '../error/error.service';
 
 @Component({
   selector: 'app-creare-person',
@@ -52,7 +53,7 @@ export class CreatePersonComponent {
       ]),
   }, { validators: passwordMismatchValidator})
 
-  constructor(private _router:Router, private _personService:PersonsService){}
+  constructor(private _router:Router, private _personService:PersonsService, private _errorService:ErrorService){}
 
   public hasError(formControlName: string, error:string): boolean {
     const formControl = this.createPersonFormGroup.get(formControlName);
@@ -80,7 +81,9 @@ export class CreatePersonComponent {
         console.log(response);
         this._router.navigate(["/persons"]);
       },
-      (error:any) => console.log(error)
+      (error:any) => {
+        this._errorService.setError = error.error.message;
+      }
     );
   }
 }

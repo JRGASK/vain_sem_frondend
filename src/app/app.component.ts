@@ -5,11 +5,12 @@ import { PersonsComponent } from './persons/component/persons.component';
 import { MainComponent } from './main/main.component';
 import { LoginService } from './auth/login.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ErrorService } from './error/error.service';
 
 @Component({
   standalone: true,
   imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule],
-  providers: [LoginService,HttpClientModule],
+  providers: [ErrorService,LoginService,HttpClientModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

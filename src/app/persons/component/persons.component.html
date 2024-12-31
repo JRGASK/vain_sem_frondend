@@ -2,20 +2,20 @@
 <div >
   <div class="container">
     <div *ngIf="showInfoList" class="card border-color-purple">
-        <div class="card-header bg-color-gold">
+        <div class="card-header text-bg-dark border-color-purple ">
           <h3 class="card-title"> {{ onePerson.name || 'Not Available'}} {{ onePerson.surname || 'Not Available'}}  details</h3>
         </div>
-        <div class="card-body">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item list-group-item-action "><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
-            <li class="list-group-item list-group-item-action"><strong>Name:</strong> {{ onePerson.name || 'Not Available'}}</li>
-            <li class="list-group-item list-group-item-action"><strong>Surname:</strong> {{ onePerson.surname ||'Not Available' }}</li>
-            <li class="list-group-item list-group-item-action"><strong>Phone Number:</strong> {{ onePerson.phoneNumber || 'Not Available' }}</li>
-            <li class="list-group-item list-group-item-action"><strong>Role:</strong> {{ onePerson.role || 'Not Available' }}</li>
+        <div class="card-body text-bg-dark ">
+          <ul class="list-group list-group-flush ">
+            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
+            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Name:</strong> {{ onePerson.name || 'Not Available'}}</li>
+            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Surname:</strong> {{ onePerson.surname ||'Not Available' }}</li>
+            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Phone Number:</strong> {{ onePerson.phoneNumber || 'Not Available' }}</li>
+            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Role:</strong> {{ onePerson.role || 'Not Available' }}</li>
             </ul>
         </div>
-        <div class="card-footer bg-color-gold  ">
-          <button type="button" class="btn btn-AU w-100 " (click)="hidePersonDetails()">HIDE</button>
+        <div class="card-footer text-bg-dark  ">
+          <button type="button" class="btn btn-info w-100 " (click)="hidePersonDetails()">HIDE</button>
         </div>
     </div>
 
@@ -62,17 +62,14 @@
     </div>
 
     <div *ngIf="showPersonTable" class="container mt-5">
-      <div class="table-container table-responsive">
-        <table border="1" class="table table-striped  table-hover">
+      <div class="table-container table-responsive ">
+        <table border="1" class="table table-striped  table-hover table-dark">
           <thead>
           <tr>
             <th>Email</th>
             <th>Name</th>
             <th>Surname</th>
             <th>Actions</th>
-            <th></th>
-            <th></th>
-            <th *ngIf="deleteConfirm"></th>
           </tr>
           </thead>
           <tbody>
@@ -81,22 +78,20 @@
             <td>{{ user.name }}</td>
             <td>{{ user.surname }}</td>
             <td>
-              <button type="button" class="btn btn-info" (click)="getPersonInfo(user)">Info</button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-primary"(click)="updatePersonFormShow(user.email)">Update</button>
-            </td>
-            <td >
-              <button *ngIf="!deleteConfirm" type="button" class="btn btn-danger" (click)="deleteConfirmation(true)">Delete</button>
-              <button *ngIf="deleteConfirm" type="button" class="btn btn-primary" (click)="deletePerson(user)">YES</button>
-            </td>
-            <td *ngIf="deleteConfirm">
-              <button type="button" class="btn btn-danger" (click)="deleteConfirmation(false)">NO</button>
-            </td>
+              <div class="btn-group" *ngIf="!deleteConfirm">
+                <button type="button" class="btn btn-info" (click)="getPersonInfo(user)">Info</button>
+                <button type="button" class="btn btn-primary"(click)="updatePersonFormShow(user.email)">Update</button>
+                <button *ngIf="!deleteConfirm" type="button" class="btn btn-danger" (click)="deleteConfirmation(true)">Delete</button>
+              </div>
+              <div *ngIf="deleteConfirm">
+                <button *ngIf="deleteConfirm" type="button" class="btn btn-primary" (click)="deletePerson(user)">YES</button>
+                <button type="button" class="btn btn-danger" (click)="deleteConfirmation(false)">NO</button>
+              </div>
           </tr>
           </tbody>
         </table>
         <p *ngIf="users.length === 0">Nie sú dostupné žiadne údaje.</p>
       </div>
+    </div>
   </div>
 </div>
