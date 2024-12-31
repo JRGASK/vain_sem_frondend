@@ -1,8 +1,8 @@
-<div>
-  <div class="container">
-    <div  class="card border-color-purple">
+<div class="container">
+  <div  class="container">
+    <div  *ngIf="showMyAcount" class="card border-color-purple">
       <div class="card-header bg-color-gold">
-        <h3 class="card-title"> {{ currentUser?.name || 'Not Available'}} {{ currentUser?.surname || 'Not Available'}}  details</h3>
+        <h3 class="card-title"> {{ currentUser?.name || 'Not Available'}} {{ currentUser?.surname || 'Not Available'}}</h3>
       </div>
       <div class="card-body">
         <ul class="list-group list-group-flush">
@@ -13,11 +13,12 @@
         </ul>
       </div>
       <div class="card-footer bg-color-gold  ">
-        <button type="button" class="btn btn-AU w-100 ">HIDE</button>
+        <button type="button" class="btn btn-AU w-100 " (click)="updateForm()">Update</button>
       </div>
     </div>
 
-    <div class="container" *ngIf="showUpdateForm">
+
+    <div *ngIf="showUpdateForm" class="container" >
       <div class="login-header text-center">
         <h2>Update</h2>
         <p>Update person</p>
@@ -44,9 +45,8 @@
             <div class="error-input" *ngIf="hasError('phoneNumber','required')">Phone number is required</div>
           </div>
 
-          <button  class="btn btn-primary w-100"  [disabled]="!updateMyAccountGroup.valid" (click)="updatePerson()">Update</button>
+          <button  class="btn btn-primary w-100"  [disabled]="!updateMyAccountGroup.valid" (click)="updatePerson()">Save</button>
         </form>
       </div>
     </div>
-
 </div>

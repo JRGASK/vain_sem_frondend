@@ -38,7 +38,6 @@ export class MainComponent {
   }
 
   public isAdmin():boolean {
-    console.log(this.currentUser?.role);
     return this.currentUser?.role === 'ADMIN';
   }
 

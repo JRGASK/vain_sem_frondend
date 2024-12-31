@@ -53,12 +53,11 @@ export class PersonsComponent implements OnInit {
     role: new FormControl('',
       [Validators.required,
       ]),
-  }, { validators: passwordMismatchValidator})
+  },)
 
 
   constructor(
     private _personsService: PersonsService,
-    private _loginService: LoginService,
     private _router: Router,
     private cdr: ChangeDetectorRef,
   ) {
