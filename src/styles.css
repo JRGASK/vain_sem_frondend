@@ -25,12 +25,15 @@
 /* COLORS */
 
 .bg-color {
-    background-color: gray;
+    /*background-color: gray;*/
+    background: linear-gradient(to right, rgb(78, 0, 118, 0.8), rgb(218, 165, 32, 0.9));
+    min-height: 100vh;
+    margin: 0;
     /*background-color: #393939;*/
 }
 
 .bg-color-purple {
-    background: rgb(78, 0, 118, 0.9);
+    background: rgb(78, 0, 118, 0.8);
 }
 
 .bg-color-gold {
@@ -84,11 +87,16 @@
 }
 
 .container-style {
-    color: #4e0076;
+    background: linear-gradient(to left, rgb(78, 0, 118, 0.9), rgb(218, 165, 32, 0.9));
+
 }
 
 .form-lable-style {
     color: rgb(218,165,32);
     background: rgb(78, 0, 118, 0.9);
+}
+
+.dark-filter{
+    background: rgba(0, 0, 0, 0.1);
 }
 
