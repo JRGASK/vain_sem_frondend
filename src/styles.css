@@ -9,6 +9,11 @@
 
 .btn-AU-gold:hover {
     background: rgb(218,165,32);
+    border-color: #4e0076;
+}
+
+.btn-AU-gold:disabled {
+    color: rgb(218,165,32);
 }
 
 .btn-AU {
@@ -26,7 +31,7 @@
 
 .bg-color {
     /*background-color: gray;*/
-    background: linear-gradient(to right, rgb(78, 0, 118, 0.8), rgb(218, 165, 32, 0.9));
+    background: linear-gradient(to bottom right, rgba(40, 0, 80, 0.9), rgba(128, 85, 20, 0.8), rgba(50, 0, 80, 0.9));
     min-height: 100vh;
     margin: 0;
     /*background-color: #393939;*/
@@ -99,4 +104,11 @@
 .dark-filter{
     background: rgba(0, 0, 0, 0.1);
 }
+
+
+.error-input {
+    border-color: #dc3545 !important;
+    color: red;
+}
+
 

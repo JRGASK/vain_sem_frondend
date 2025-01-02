@@ -1,11 +1,14 @@
 
 <div class="container d-flex justify-content-center mt-5">
-  <div class="card text-bg-dark">
-    <div class="card-header text-center">
+
+  <div class="card text-bg-dark border-color-gold">
+
+    <div class="card-header border-color-gold text-center">
       <h2>Create</h2>
       <p>Add new Person</p>
     </div>
-    <div class="container mt-4">
+
+    <div class="container mt-4 card-body">
 
         <form  [formGroup]="createPersonFormGroup">
 
@@ -44,8 +47,8 @@
           </div>
 
           <div class="mb-3">
-            <label for="phone_number" class="form-label text-bg-dark">Phone Number</label>
-            <input id="phone_number" class="form-control text-bg-dark" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{'error-input': hasError('phoneNumber','required')}">
+            <label for="phone_number" class="form-label text-bg-dark ">Phone Number</label>
+            <input id="phone_number" class="form-control text-bg-dark " placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{'error-input': hasError('phoneNumber','required')}">
             <div class="error-input" *ngIf="hasError('phoneNumber','required')">Phone number is required</div>
           </div>
 
@@ -58,10 +61,12 @@
             </select>
             <div class="error-input" *ngIf="hasError('role','required')">Role is required</div>
           </div>
-          <div class="card-footer">
-            <button  class="btn btn-primary w-100"  [disabled]="!createPersonFormGroup.valid" (click)="createPerson()">Register</button>
+
+          <div class="card-footer border-color-gold">
+            <button  class="btn btn-AU-gold w-100"  [disabled]="!createPersonFormGroup.valid" (click)="createPerson()">Register</button>
           </div>
-         </form>
+
+        </form>
     </div>
   </div>
 </div>

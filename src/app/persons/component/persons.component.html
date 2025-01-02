@@ -1,69 +1,76 @@
-<!-- niektoré komponenty boli prevzané s bootstrapu a upravené pre moje potreby -->
-<div >
+<div class="container d-flex justify-content-center mt-5">
   <div class="container mt-5 ">
-    <div *ngIf="showInfoList" class="card border-color-purple">
-        <div class="card-header text-bg-dark border-color-purple ">
+    <div *ngIf="showInfoList" class="card border-color-gold">
+        <div class="card-header text-bg-dark border-color-gold ">
           <h3 class="card-title"> {{ onePerson.name || 'Not Available'}} {{ onePerson.surname || 'Not Available'}}  details</h3>
         </div>
-        <div class="card-body text-bg-dark ">
-          <ul class="list-group list-group-flush ">
-            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
-            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Name:</strong> {{ onePerson.name || 'Not Available'}}</li>
-            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Surname:</strong> {{ onePerson.surname ||'Not Available' }}</li>
-            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Phone Number:</strong> {{ onePerson.phoneNumber || 'Not Available' }}</li>
-            <li class="list-group-item list-group-item-action text-bg-dark"><strong>Role:</strong> {{ onePerson.role || 'Not Available' }}</li>
+        <div class="card-body text-bg-dark border-color-gold ">
+          <ul class="list-group list-group-flush border-color-gold ">
+            <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Email:</strong> {{ onePerson.email || 'Not Available'}}</li>
+            <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Name:</strong> {{ onePerson.name || 'Not Available'}}</li>
+            <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Surname:</strong> {{ onePerson.surname ||'Not Available' }}</li>
+            <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Phone Number:</strong> {{ onePerson.phoneNumber || 'Not Available' }}</li>
+            <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Role:</strong> {{ onePerson.role || 'Not Available' }}</li>
             </ul>
         </div>
         <div class="card-footer text-bg-dark  ">
-          <button type="button" class="btn btn-info w-100 " (click)="hidePersonDetails()">HIDE</button>
+          <button type="button" class="btn btn-AU-gold w-100 " (click)="hidePersonDetails()">HIDE</button>
         </div>
     </div>
 
-    <div class="container mt-5" *ngIf="showUpdateForm">
-      <div class="login-header text-center">
-        <h2>Update</h2>
-        <p>Update person</p>
-      </div>
-      <div class="container mt-4">
-        <form  [formGroup]="updatePersonFormGroup">
+    <div class="container mt-5 " *ngIf="showUpdateForm">
+        <div class="card text-bg-dark border-color-gold">
 
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input id="name" class="form-control" formControlName="name" type="text" placeholder="Name" [ngClass]="{'error-input': hasError('name','required')}">
-            <div class="error-input" *ngIf="hasError('name','required')">Name is required</div>
-
+          <div class="card-header text-center border-color-gold">
+            <h2>Update</h2>
+            <p>Update person</p>
           </div>
 
-          <div class="mb-3">
-            <label for="surname" class="form-label">Surname</label>
-            <input id="surname" class="form-control" type="text" placeholder="Surname" formControlName="surname" [ngClass]="{'error-input': hasError('surname','required')}">
-            <div class="error-input" *ngIf="hasError('surname','required')">Surname is required</div>
+          <div class="card-body text-bg-dark">
+            <form  [formGroup]="updatePersonFormGroup">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="name" class="form-label text-bg-dark">Name</label>
+                <input id="name" class="form-control text-bg-dark" formControlName="name" type="text" placeholder="Name" [ngClass]="{'error-input': hasError('name','required')}">
+                <div class="error-input" *ngIf="hasError('name','required')">Name is required</div>
+              </div>
+
+              <div class="col">
+                <label for="surname" class="form-label text-bg-dark">Surname</label>
+                <input id="surname" class="form-control text-bg-dark" type="text" placeholder="Surname" formControlName="surname" [ngClass]="{'error-input': hasError('surname','required')}">
+                <div class="error-input" *ngIf="hasError('surname','required')">Surname is required</div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col ">
+                <label for="phone_number" class="form-label text-bg-dark">Phone Number</label>
+                <input id="phone_number" class="form-control text-bg-dark" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{'error-input': hasError('phoneNumber','required')}">
+                <div class="error-input" *ngIf="hasError('phoneNumber','required')">Phone number is required</div>
+              </div>
+
+                <div class="col">
+                  <label for="rola" class="form-label text-bg-dark">Role</label>
+                  <select id="rola" name="rola" class="form-select text-bg-dark" formControlName="role" [ngClass]="{'error-input': hasError('role','required')}">
+                    <option value="" disabled selected>Select a role</option>
+                    <option value="CUSTOMER">CUSTOMER</option>
+                    <option value="ADMIN">ADMIN</option>
+                  </select>
+                  <div class="error-input" *ngIf="hasError('role','required')">Role is required</div>
+                </div>
+              </div>
+            </form>
           </div>
 
-          <div class="mb-3">
-            <label for="phone_number" class="form-label">Phone Number</label>
-            <input id="phone_number" class="form-control" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{'error-input': hasError('phoneNumber','required')}">
-            <div class="error-input" *ngIf="hasError('phoneNumber','required')">Phone number is required</div>
+          <div class="card-footer border-color-gold">
+            <button  class="btn btn-AU-gold w-100"  [disabled]="!updatePersonFormGroup.valid" (click)="updatePerson()">Update</button>
           </div>
-
-          <div class="mb-3">
-            <label for="rola" class="form-label">Role</label>
-            <select id="rola" name="rola" class="form-select" formControlName="role" [ngClass]="{'error-input': hasError('role','required')}">
-              <option value="" disabled selected>Select a role</option>
-              <option value="CUSTOMER">CUSTOMER</option>
-              <option value="ADMIN">ADMIN</option>
-            </select>
-            <div class="error-input" *ngIf="hasError('role','required')">Role is required</div>
-          </div>
-
-          <button  class="btn btn-primary w-100"  [disabled]="!updatePersonFormGroup.valid" (click)="updatePerson()">Update</button>
-        </form>
-      </div>
+        </div>
     </div>
 
     <div *ngIf="showPersonTable" class="container mt-5 ">
-      <div class="table-container table-responsive ">
-        <table border="1" class="table table-striped  table-hover table-dark">
+      <div class="table-container table-responsive border-color-gold">
+        <table border="1" class="table table-striped  table-hover table-dark border-color-gold">
           <thead>
           <tr>
             <th>Email</th>
