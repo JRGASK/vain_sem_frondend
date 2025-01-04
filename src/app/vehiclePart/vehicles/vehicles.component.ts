@@ -74,7 +74,17 @@ export class VehiclesComponent implements OnInit {
   }
 
   public getVehicleInfo(vehicle:any): void {
-    return;
+    console.log(vehicle.plateNumber);
+   this._vehicleService.getVehicleByPlateNumber(vehicle.plateNumber).subscribe(
+     (response: any) => {
+       this.vehicle = response;
+       this.showInfoList = true;
+       this.showVehicleTable = false;
+       console.log(response);
+       console.log(this.vehicle);
+     },
+     (error:any) => console.error(error)
+   );
   }
 
   public updateVehicleFormShow(plate:string){

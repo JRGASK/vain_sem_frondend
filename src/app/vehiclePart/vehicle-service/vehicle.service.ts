@@ -16,6 +16,7 @@ export class VehicleService {
   }
 
   public getVehicleByPlateNumber(plate:string): Observable<any> {
+    console.log(plate)
     return this._http.get(`http://localhost:8080/vehicles/vehicle/${plate}`);
   }
 

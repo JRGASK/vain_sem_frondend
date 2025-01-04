@@ -82,7 +82,6 @@ export class PersonsComponent implements OnInit {
         this.onePerson = response
         this.showInfoList = true;
         this.showPersonTable = false;
-        this._errorService.setError = "get";
       },
       (error: any) => console.log(error)
     );
