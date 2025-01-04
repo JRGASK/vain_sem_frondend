@@ -88,5 +88,9 @@ export class MainComponent {
     this._router.navigate(['/myAccountInfo']);
   }
 
+  public toTableOfVehicles() {
+    this._router.navigate(['/vehicles']);
+  }
+
   protected readonly navigator = navigator;
 }

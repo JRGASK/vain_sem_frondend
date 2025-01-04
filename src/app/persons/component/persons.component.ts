@@ -88,8 +88,8 @@ export class PersonsComponent implements OnInit {
     );
   }
 
-  public deletePerson(users: any): void {
-    this._personsService.deletePerson(users.email).subscribe(
+  public deletePerson(user: any): void {
+    this._personsService.deletePerson(user.email).subscribe(
       (response: any) => {
         this.deleteConfirm = false;
         this.refreshData();

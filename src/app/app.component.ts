@@ -6,10 +6,11 @@ import { MainComponent } from './main/main.component';
 import { LoginService } from './auth/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorService } from './error/error.service';
+import { VehiclesComponent } from './vehiclePart/vehicles/vehicles.component';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule],
+  imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule, VehiclesComponent],
   providers: [ErrorService,LoginService,HttpClientModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
