@@ -148,7 +148,7 @@ export class VehiclesComponent implements OnInit {
       email: this.updateVehicleFromGroup.value.email
     }
 
-    this._vehicleService.updateVehicle(this.vehicleToUpdate.plateNumber,updatedVehicle).subscribe(
+    this._vehicleService.updateVehicle(this.vehicleToUpdate.plateNumber ,updatedVehicle).subscribe(
       (response:any) => {
         this.showUpdateForm = false;
         this.showVehicleTable = true;

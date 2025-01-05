@@ -2,7 +2,7 @@ export interface ICreteVehicle {
 
   plateNumber :string;
 
-  type:string;
+  type :string;
 
   engine :string;
 
@@ -20,7 +20,7 @@ export interface IUpdateVehicle {
 
   plateNumber :string;
 
-  type:string;
+  type :string;
 
   engine :string;
 
