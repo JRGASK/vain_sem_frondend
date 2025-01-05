@@ -85,6 +85,6 @@ export class CreateVehicleComponent {
   }
 
   public isAdmin():boolean {
-    return this._currentUser?.role === 'admin';
+    return this._currentUser?.role === 'ADMIN';
   }
 }

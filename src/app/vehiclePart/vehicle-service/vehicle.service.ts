@@ -21,7 +21,7 @@ export class VehicleService {
   }
 
   public getVehicleByEmail(email:string): Observable<any> {
-    return this._http.get(`http://localhost:8080/vehicles/${email}`);
+    return this._http.get(`http://localhost:8080/vehicles/vehicle/${email}`);
   }
 
   public deleteVehicle(plate:string): Observable<any> {

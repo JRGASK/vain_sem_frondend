@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorService } from '../../error/error.service';
@@ -6,6 +6,8 @@ import { VehicleService } from '../vehicle-service/vehicle.service';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { IUpdateVehicle } from '../vehicle/IVehicle';
+import { LoginService } from '../../auth/login.service';
+import { IUser } from '../../user/IUser';
 
 
 @Component({
@@ -18,6 +20,8 @@ import { IUpdateVehicle } from '../vehicle/IVehicle';
 })
 export class VehiclesComponent implements OnInit {
   public oneVehicle: any;
+
+  private _currentUser: IUser | undefined;
 
   public vehicles: any[] = [];
 
@@ -63,18 +67,38 @@ export class VehiclesComponent implements OnInit {
     private _router: Router,
     private cdr: ChangeDetectorRef,
     private _errorService: ErrorService,
-    private _vehicleService: VehicleService
-  ) {}
+    private _vehicleService: VehicleService,
+    private _loginService: LoginService
+  ) {
+    effect(() => {
+      this._currentUser = this._loginService.currentUser();
+    });
+  }
 
   ngOnInit(): void {
+    this._currentUser = this._loginService.currentUser();
     this.loadData();
+    console.log(this._currentUser);
   }
 
   public loadData(): void {
-    this._vehicleService.getVehicles().subscribe(
-      (response: any) => (this.vehicles = response.content),
-      (error: any) => console.log(error)
-    );
+    if (this.isAdmin()){
+      this._vehicleService.getVehicles().subscribe(
+        (response: any) => (this.vehicles = response.content),
+        (error: any) => console.log(error)
+      );
+    }else {
+      if (this._currentUser) {
+        this._vehicleService.getVehicleByEmail(this._currentUser.email).subscribe(
+          (response: any) => (this.vehicles = response.content),
+          (error: any) => console.log(error)
+        )
+      }
+      console.log(this.vehicles);
+      console.log(this._currentUser);
+    }
+
+
   }
 
   public refreshData(): void {
@@ -138,6 +162,13 @@ export class VehiclesComponent implements OnInit {
   }
 
   public updateVehicle(): void {
+
+    if (!this.isAdmin()){
+      this.updateVehicleFromGroup.patchValue({
+        email: this._currentUser?.email
+      })
+    }
+
     const updatedVehicle : IUpdateVehicle = <IUpdateVehicle> {
       plateNumber: this.updateVehicleFromGroup.value.plateNumber,
       type: this.updateVehicleFromGroup.value.type,
@@ -174,6 +205,8 @@ export class VehiclesComponent implements OnInit {
     return formControl?.touched && formControl?.hasError(error);
   }
 
-
+  public isAdmin():boolean {
+    return this._currentUser?.role === 'ADMIN';
+  }
 
 }
