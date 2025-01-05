@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorService } from '../../error/error.service';
 import { VehicleService } from '../vehicle-service/vehicle.service';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { IUpdateVehicle } from '../vehicle/IVehicle';
 
 
 @Component({
@@ -31,6 +32,32 @@ export class VehiclesComponent implements OnInit {
   public showInfoList = false;
 
   public deleteConfirm = false;
+
+  public updateVehicleFromGroup = new FormGroup({
+    plateNumber: new FormControl('',[
+      Validators.required,
+      Validators.minLength(1),
+    ]),
+    type: new FormControl('',[
+      Validators.minLength(1),
+    ]),
+    engine: new FormControl('',
+      [Validators.minLength(1)
+      ]),
+    make: new FormControl('',
+      [Validators.required,
+      ]),
+    model: new FormControl('',
+      [Validators.required,
+      ]),
+    color: new FormControl('',
+      [Validators.required,
+      ]),
+    email: new FormControl('',
+      [Validators.required,
+        Validators.email,
+      ]),
+  })
 
   constructor(
     private _router: Router,
@@ -88,11 +115,65 @@ export class VehiclesComponent implements OnInit {
   }
 
   public updateVehicleFormShow(plate:string){
-    return;
+    this._vehicleService.getVehicleByPlateNumber(plate).subscribe(
+      (response: any) => {
+        this.vehicleToUpdate = response;
+        if (this.vehicleToUpdate) {
+          this.updateVehicleFromGroup.patchValue({
+            plateNumber: this.vehicleToUpdate.plateNumber || '',
+            type: this.vehicleToUpdate.type || '',
+            engine: this.vehicleToUpdate.engine || '',
+            make: this.vehicleToUpdate.make || '',
+            model: this.vehicleToUpdate.model || '',
+            color: this.vehicleToUpdate.color || '',
+            email: this.vehicleToUpdate.email || ''
+          })
+        }
+        this.showUpdateForm = true;
+        this.showVehicleTable = false;
+        this.refreshData();
+      },
+      (error:any) => this._errorService.setError = error.error.message
+    )
+  }
+
+  public updateVehicle(): void {
+    const updatedVehicle : IUpdateVehicle = <IUpdateVehicle> {
+      plateNumber: this.updateVehicleFromGroup.value.plateNumber,
+      type: this.updateVehicleFromGroup.value.type,
+      engine: this.updateVehicleFromGroup.value.engine,
+      make: this.updateVehicleFromGroup.value.make,
+      model: this.updateVehicleFromGroup.value.model,
+      color: this.updateVehicleFromGroup.value.color,
+      email: this.updateVehicleFromGroup.value.email
+    }
+
+    this._vehicleService.updateVehicle(this.vehicleToUpdate.plateNumber,updatedVehicle).subscribe(
+      (response:any) => {
+        this.showUpdateForm = false;
+        this.showVehicleTable = true;
+        this.refreshData();
+      },
+      (error:any) => {
+        this._errorService.setError = error.error.message;
+      },
+    );
   }
 
   public deleteConfirmation(confirm : boolean){
     this.deleteConfirm = confirm;
   }
+
+  public hasError(formControlName: string, error:string): boolean {
+    const formControl = this.updateVehicleFromGroup.get(formControlName);
+
+    if (!formControl) {
+      return false;
+    }
+
+    return formControl?.touched && formControl?.hasError(error);
+  }
+
+
 
 }

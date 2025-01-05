@@ -33,8 +33,9 @@ export class VehicleService {
     return this._http.post('http://localhost:8080/vehicles', vehicleData);
   }
 
-  public updateVehicle(vehicleData:IUpdateVehicle): Observable<any>{
-    return this._http.put(`http://localhost:8080/vehicles/vehicle/${vehicleData.plateNumber}`, vehicleData);
+  public updateVehicle(plate:string ,vehicleData:IUpdateVehicle): Observable<any>{
+    console.log(vehicleData);
+    return this._http.put(`http://localhost:8080/vehicles/vehicle/{plate}${plate}`, vehicleData);
   }
 
 }
