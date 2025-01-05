@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './vehicles.component.css',
 })
 export class VehiclesComponent implements OnInit {
-  public vehicle: any;
+  public oneVehicle: any;
 
   public vehicles: any[] = [];
 
@@ -68,7 +68,7 @@ export class VehiclesComponent implements OnInit {
   }
 
   public hidePersonDetails():void {
-    this.vehicle = null;
+    this.oneVehicle = null;
     this.showInfoList = false;
     this.showVehicleTable = true;
   }
@@ -77,11 +77,11 @@ export class VehiclesComponent implements OnInit {
     console.log(vehicle.plateNumber);
    this._vehicleService.getVehicleByPlateNumber(vehicle.plateNumber).subscribe(
      (response: any) => {
-       this.vehicle = response;
+       this.oneVehicle = response;
        this.showInfoList = true;
        this.showVehicleTable = false;
        console.log(response);
-       console.log(this.vehicle);
+       console.log(this.oneVehicle);
      },
      (error:any) => console.error(error)
    );

@@ -2,21 +2,21 @@
   <div class="container mt-5 ">
     <div *ngIf="showInfoList" class="card border-color-gold">
       <div class="card-header text-bg-dark border-color-gold ">
-        <h3 class="card-title"> {{ vehicle.plateNumber || 'Not Available'}} {{ vehicle.model || 'Not Available'}}  details</h3>
+        <h3 class="card-title"> {{ oneVehicle.plateNumber || 'Not Available'}} {{ oneVehicle.model || 'Not Available'}}  details</h3>
       </div>
       <div class="card-body text-bg-dark border-color-gold ">
         <ul class="list-group list-group-flush border-color-gold ">
-          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>PlaceNumber:</strong> {{ vehicle.placeNumber || 'Not Available'}}</li>
-          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Email:</strong> {{ vehicle.email || 'Not Available'}}</li>
-          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Type:</strong> {{ vehicle.type||'Not Available' }}</li>
-          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Engine:</strong> {{ vehicle.engine || 'Not Available' }}</li>
-          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Make:</strong> {{ vehicle.make || 'Not Available' }}</li>
-          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Model:</strong> {{ vehicle.model || 'Not Available' }}</li>
-          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Color:</strong> {{ vehicle.color || 'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>PlaceNumber:</strong> {{ oneVehicle.plateNumber || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Email:</strong> {{ oneVehicle.email || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Type:</strong> {{ oneVehicle.type||'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Engine:</strong> {{ oneVehicle.engine || 'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Make:</strong> {{ oneVehicle.make || 'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Model:</strong> {{ oneVehicle.model || 'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Color:</strong> {{ oneVehicle.color || 'Not Available' }}</li>
         </ul>
       </div>
       <div class="card-footer text-bg-dark  ">
-        <button type="button" class="btn btn-AU-gold w-100 " (click)="deleteConfirmation(false)">HIDE</button>
+        <button type="button" class="btn btn-AU-gold w-100 " (click)="hidePersonDetails()">HIDE</button>
       </div>
     </div>
 
