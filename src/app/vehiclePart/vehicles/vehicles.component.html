@@ -37,7 +37,7 @@
                 <div class="error-input" *ngIf="hasError('plateNumber','required')">Plate Number is required</div>
               </div>
 
-              <div class="col">
+              <div *ngIf="isAdmin()" class="col">
                 <label for="email" class="form-label text-bg-dark">Email</label>
                 <input id="email" class="form-control text-bg-dark" type="text" placeholder="Email" formControlName="email" [ngClass]="{'error-input': hasError('email','required')}">
                 <div class="error-input" *ngIf="hasError('email','required')">Email is required</div>
