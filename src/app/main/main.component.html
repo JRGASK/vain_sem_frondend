@@ -28,8 +28,21 @@
               </a>
               <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
                 <li><button  *ngIf="isLogin()" class="dropdown-item "  (click)="toCreateAPerson()">Create Person</button></li>
-                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfPersons()">List of person</button></li>
-                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfVehicles()">List of person</button></li>
+                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfPersons()">List of persons</button></li>
+                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfVehicles()">List of vehicles</button></li>
+                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toCreateVehicle()">Create Vehicle</button></li>
+              </ul>
+            </li>
+          </div>
+
+          <div *ngIf="!isAdmin()">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCustomer" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 Menu
+              </a>
+              <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
+                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfVehicles()">List of vehicles</button></li>
+                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toCreateVehicle()">Create Vehicle</button></li>
               </ul>
             </li>
           </div>

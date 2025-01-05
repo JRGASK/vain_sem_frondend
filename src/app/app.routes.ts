@@ -10,6 +10,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { RoleGuard } from '../role.guard';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { VehiclesComponent } from './vehiclePart/vehicles/vehicles.component';
+import { CreateVehicleComponent } from './vehiclePart/create-vehicle/create-vehicle.component';
 
 export const appRoutes: Route[] = [
   { path: 'login', component: LoginComponent },
@@ -20,6 +21,7 @@ export const appRoutes: Route[] = [
   { path: 'createPerson', component: CreatePersonComponent, canActivate: [AuthGuard,RoleGuard]},
   { path: 'main', component: MainComponent, canActivate: [AuthGuard,RoleGuard]},
   { path: 'myAccountInfo', component: MyAccountComponent, canActivate: [AuthGuard]},
-  { path: 'vehicles', component: VehiclesComponent, canActivate: [AuthGuard,RoleGuard]},
+  { path: 'vehicles', component: VehiclesComponent, canActivate: [AuthGuard]},
+  { path: 'createVehicle', component: CreateVehicleComponent, canActivate: [AuthGuard]},
   { path: '',   redirectTo: '/mainPage', pathMatch: 'full' },
 ];

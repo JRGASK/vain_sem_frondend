@@ -78,7 +78,6 @@ export class CreatePersonComponent {
 
     this._personService.createPerson(createdPerson).subscribe(
       (response :any) => {
-        console.log(response);
         this._router.navigate(["/persons"]);
       },
       (error:any) => {

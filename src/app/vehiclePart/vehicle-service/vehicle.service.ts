@@ -30,7 +30,7 @@ export class VehicleService {
   }
 
   public createVehicle(vehicleData:ICreteVehicle): Observable<any>{
-    return this._http.post('http://localhost:8080/vehicles', vehicleData);
+    return this._http.post('http://localhost:8080/vehicles/vehicle', vehicleData);
   }
 
   public updateVehicle(plate:string ,vehicleData:IUpdateVehicle): Observable<any>{

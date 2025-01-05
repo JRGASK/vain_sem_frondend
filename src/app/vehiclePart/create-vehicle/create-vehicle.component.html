@@ -1,1 +1,74 @@
-<p>create-vehicle works!</p>
+
+<div class="container mt-5 ">
+  <div class="card text-bg-dark border-color-gold">
+
+    <div class="card-header text-center border-color-gold">
+      <h2>Create</h2>
+      <p>Create vehicle</p>
+    </div>
+
+    <div class="card-body text-bg-dark">
+      <form  [formGroup]="createVehicleFormGroup">
+        <div class="row mb-3">
+          <div class="col">
+            <label for="plateNumber" class="form-label text-bg-dark">Plate Number</label>
+            <input id="plateNumber" class="form-control text-bg-dark" formControlName="plateNumber" type="text" placeholder="Plate Number" [ngClass]="{'error-input': hasError('plateNumber','required')}">
+            <div class="error-input" *ngIf="hasError('plateNumber','required')">Plate Number is required</div>
+          </div>
+
+          <div class="col" *ngIf="isAdmin()">
+            <label for="email" class="form-label text-bg-dark">Email</label>
+            <input id="email" class="form-control text-bg-dark" type="text" placeholder="Email" formControlName="email" [ngClass]="{'error-input': hasError('email','required')}">
+            <div class="error-input" *ngIf="hasError('email','required')">Email is required</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="type" class="form-label text-bg-dark">Type</label>
+            <select id="type" name="rola" class="form-select text-bg-dark" formControlName="type" [ngClass]="{'error-input': hasError('type','required')}">
+              <option value="" disabled selected>Select a role</option>
+              <option value="CAR">CAR</option>
+              <option value="BIKE">BIKE</option>
+              <option value="OTHER">OTHER</option>
+            </select>
+            <div class="error-input" *ngIf="hasError('type','required')">Type is required</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="engine" class="form-label text-bg-dark">Engine</label>
+            <input id="engine" class="form-control text-bg-dark" formControlName="engine" type="text" placeholder="Engine" [ngClass]="{'error-input': hasError('engine','required')}">
+            <div class="error-input" *ngIf="hasError('engine','required')">Engine is required</div>
+          </div>
+
+          <div class="col">
+            <label for="make" class="form-label text-bg-dark">Make</label>
+            <input id="make" class="form-control text-bg-dark" type="text" placeholder="Make" formControlName="make" [ngClass]="{'error-input': hasError('make','required')}">
+            <div class="error-input" *ngIf="hasError('make','required')">Make is required</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="model" class="form-label text-bg-dark">Model</label>
+            <input id="model" class="form-control text-bg-dark" formControlName="model" type="text" placeholder="Engine" [ngClass]="{'error-input': hasError('model','required')}">
+            <div class="error-input" *ngIf="hasError('model','required')">Mode Number is required</div>
+          </div>
+
+          <div class="col">
+            <label for="color" class="form-label text-bg-dark">Color</label>
+            <input id="color" class="form-control text-bg-dark" type="text" placeholder="Color" formControlName="color" [ngClass]="{'error-input': hasError('color','required')}">
+            <div class="error-input" *ngIf="hasError('make','required')">color is required</div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="card-footer border-color-gold">
+      <button  class="btn btn-AU-gold w-100"  [disabled]="!createVehicleFormGroup.valid" (click)="createVehicle()">Create</button>
+    </div>
+  </div>
+</div>

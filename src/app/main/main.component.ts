@@ -92,5 +92,9 @@ export class MainComponent {
     this._router.navigate(['/vehicles']);
   }
 
+  public toCreateVehicle() {
+    this._router.navigate(['/createVehicle'])
+  }
+
   protected readonly navigator = navigator;
 }
