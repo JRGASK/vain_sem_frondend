@@ -96,5 +96,12 @@ export class MainComponent {
     this._router.navigate(['/createVehicle'])
   }
 
+  public toTableOfCustomerServices(){
+    this._router.navigate(['/customerServices']);
+  }
+
+  public toCreateCustomerServices() {
+    this._router.navigate(['/createCustomerServices']);
+  }
   protected readonly navigator = navigator;
 }

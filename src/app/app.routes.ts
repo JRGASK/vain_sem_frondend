@@ -11,6 +11,9 @@ import { RoleGuard } from '../role.guard';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { VehiclesComponent } from './vehiclePart/vehicles/vehicles.component';
 import { CreateVehicleComponent } from './vehiclePart/create-vehicle/create-vehicle.component';
+import {
+  CreateCustomerServiceComponent
+} from './cutomerSevicesPart/create-customer-service/create-customer-service.component';
 
 export const appRoutes: Route[] = [
   { path: 'login', component: LoginComponent },
@@ -23,5 +26,7 @@ export const appRoutes: Route[] = [
   { path: 'myAccountInfo', component: MyAccountComponent, canActivate: [AuthGuard]},
   { path: 'vehicles', component: VehiclesComponent, canActivate: [AuthGuard]},
   { path: 'createVehicle', component: CreateVehicleComponent, canActivate: [AuthGuard]},
+  { path: 'customerServices', component: CreateVehicleComponent, canActivate: [AuthGuard,RoleGuard]},
+  { path: 'createCustomerServices', component: CreateCustomerServiceComponent, canActivate: [AuthGuard,RoleGuard]},
   { path: '',   redirectTo: '/mainPage', pathMatch: 'full' },
 ];

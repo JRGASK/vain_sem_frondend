@@ -1,0 +1,40 @@
+
+<div class="container mt-5 ">
+  <div class="card text-bg-dark border-color-gold">
+
+    <div class="card-header text-center border-color-gold">
+      <h2>Create</h2>
+      <p>Create vehicle</p>
+    </div>
+
+    <div class="card-body text-bg-dark">
+      <form  [formGroup]="createCustomerServicesFormGroup">
+        <div class="row mb-3">
+          <div class="col">
+            <label for="name" class="form-label text-bg-dark">Name of Service</label>
+            <input id="name" class="form-control text-bg-dark" formControlName="name" type="text" placeholder="Name" [ngClass]="{'error-input': hasError('name','required')}">
+            <div class="error-input" *ngIf="hasError('name','required')">Name of service is required</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="price" class="form-label text-bg-dark">Price</label>
+            <input id="price" class="form-control text-bg-dark" formControlName="price" type="text" placeholder="10.99" [ngClass]="{'error-input': hasError('price','required')}">
+            <div class="error-input" *ngIf="hasError('price','required')">Engine is required</div>
+          </div>
+
+          <div class="col">
+            <label for="info" class="form-label text-bg-dark">Info</label>
+            <input id="info" class="form-control text-bg-dark" type="text" placeholder="Info obout service" formControlName="info" [ngClass]="{'error-input': hasError('info','required')}">
+            <div class="error-input" *ngIf="hasError('info','required')">Make is required</div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-footer border-color-gold">
+      <button  class="btn btn-AU-gold w-100"  [disabled]="!createCustomerServicesFormGroup.valid" (click)="createCustomerService()">Create</button>
+    </div>
+  </div>
+</div>

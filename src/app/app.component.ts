@@ -8,10 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ErrorService } from './error/error.service';
 import { VehiclesComponent } from './vehiclePart/vehicles/vehicles.component';
 import { CreateVehicleComponent } from './vehiclePart/create-vehicle/create-vehicle.component';
+import {
+  CreateCustomerServiceComponent
+} from './cutomerSevicesPart/create-customer-service/create-customer-service.component';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule, VehiclesComponent, CreateVehicleComponent],
+  imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule, VehiclesComponent, CreateVehicleComponent, CreateCustomerServiceComponent],
   providers: [ErrorService,LoginService,HttpClientModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
