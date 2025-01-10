@@ -108,7 +108,6 @@ export class VehiclesComponent implements OnInit {
   }
 
   public deleteVehicle(vehicle: any): void {
-    console.log(vehicle.plateNumber)
     this._vehicleService.deleteVehicle(vehicle.plateNumber).subscribe(
       (deleteResponse: any) => {
         this.deleteConfirm = false;

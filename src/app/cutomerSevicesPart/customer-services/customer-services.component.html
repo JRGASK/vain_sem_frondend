@@ -1,0 +1,94 @@
+<div class="container d-flex justify-content-center mt-5">
+  <div class="container mt-5 ">
+    <div *ngIf="showInfoList" class="card border-color-gold">
+      <div class="card-header text-bg-dark border-color-gold ">
+        <h3 class="card-title"> {{ oneCustmerService.id || 'Not Available'}} {{ oneCustmerService.name || 'Not Available'}}  details</h3>
+      </div>
+      <div class="card-body text-bg-dark border-color-gold ">
+        <ul class="list-group list-group-flush border-color-gold ">
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>ID:</strong> {{ oneCustmerService.id || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Name:</strong> {{ oneCustmerService.name || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Price:</strong> {{ oneCustmerService.price||'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Info:</strong> {{ oneCustmerService.info || 'Not Available' }}</li>
+        </ul>
+      </div>
+      <div class="card-footer text-bg-dark  ">
+        <button type="button" class="btn btn-AU-gold w-100 " (click)="hideDetails()">HIDE</button>
+      </div>
+    </div>
+
+    <div class="container mt-5" *ngIf="showUpdateForm">
+      <div class="card text-bg-dark border-color-gold">
+
+        <div class="card-header text-center border-color-gold">
+          <h2>Create</h2>
+          <p>Update customer service</p>
+        </div>
+
+        <div class="card-body text-bg-dark">
+          <form  [formGroup]="updateCustomerServicesFormGroup">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="name" class="form-label text-bg-dark">Name of Service</label>
+                <input id="name" class="form-control text-bg-dark" formControlName="name" type="text" placeholder="Name" [ngClass]="{'error-input': hasError('name','required')}">
+                <div class="error-input" *ngIf="hasError('name','required')">Name of service is required</div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label for="price" class="form-label text-bg-dark">Price</label>
+                <input id="price" class="form-control text-bg-dark" formControlName="price" type="text" placeholder="10.99" [ngClass]="{'error-input': hasError('price','required')}">
+                <div class="error-input" *ngIf="hasError('price','required')">Engine is required</div>
+              </div>
+
+              <div class="col">
+                <label for="info" class="form-label text-bg-dark">Info</label>
+                <input id="info" class="form-control text-bg-dark" type="text" placeholder="Info obout service" formControlName="info" [ngClass]="{'error-input': hasError('info','required')}">
+                <div class="error-input" *ngIf="hasError('info','required')">Make is required</div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="card-footer border-color-gold">
+          <button  class="btn btn-AU-gold w-100"  [disabled]="!updateCustomerServicesFormGroup.valid" (click)="updateCustomerService()">Update</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="showVehicleTable" class="container mt-5 ">
+      <div class="table-container table-responsive border-color-gold">
+        <table border="1" class="table table-striped  table-hover table-dark border-color-gold">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let service of custmerServices">
+            <td>{{ service.id }}</td>
+            <td>{{ service.name }}</td>
+            <td>{{ service.price }}</td>
+            <td>
+              <div class="btn-group" *ngIf="!deleteConfirm">
+                <button type="button" class="btn btn-info" (click)="getCustomerServiceInfo(service)">Info</button>
+                <button type="button" class="btn btn-primary" (click)="updateCustomerServiceFormShow(service.id)">Update</button>
+                <button *ngIf="!deleteConfirm" type="button" class="btn btn-danger" (click)="deleteConfirmation(true)">Delete</button>
+              </div>
+              <div *ngIf="deleteConfirm">
+                <button *ngIf="deleteConfirm" type="button" class="btn btn-primary" (click)="deleteCustomerService(service)">YES</button>
+                <button type="button" class="btn btn-danger" (click)="deleteConfirmation(false)">NO</button>
+              </div>
+          </tr>
+          </tbody>
+        </table>
+        <p *ngIf="custmerServices.length === 0">Nie sú dostupné žiadne údaje.</p>
+      </div>
+    </div>
+  </div>
+</div>
