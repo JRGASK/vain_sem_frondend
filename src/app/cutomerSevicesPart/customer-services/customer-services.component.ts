@@ -7,6 +7,8 @@ import { IUser } from '../../user/IUser';
 import { Router } from '@angular/router';
 import { ErrorService } from '../../error/error.service';
 import { LoginService } from '../../auth/login.service';
+import { IUpdateCustomerServices } from '../customerService/ICustomerServices';
+import { error } from '@angular/compiler-cli/src/transformers/util';
 
 @Component({
   selector: 'app-customer-services',
@@ -21,12 +23,13 @@ export class CustomerServicesComponent {
   public oneCustmerService: any;
 
   public custmerServices: any[] = [];
+  public custmerServicesToUpdate: any;
 
   private _currentUser: IUser | undefined;
 
   public showUpdateForm = false;
 
-  public showVehicleTable = true;
+  public showServiceTable = true;
 
   public showInfoList = false;
 
@@ -57,9 +60,9 @@ export class CustomerServicesComponent {
   }
 
   public loadData(): void {
-      this._customerServicesService.getCustomerServices().subscribe(
-        (response: any) => (this.custmerServices = response.content),
-        (error: any) => console.log(error))
+    this._customerServicesService.getCustomerServices().subscribe(
+      (response: any) => (this.custmerServices = response.content),
+      (error: any) => console.log(error))
   }
 
   public refreshData(): void {
@@ -81,7 +84,7 @@ export class CustomerServicesComponent {
   public hideDetails():void {
     this.oneCustmerService = null;
     this.showInfoList = false;
-    this.showVehicleTable = true;
+    this.showServiceTable = true;
   }
 
   public getCustomerServiceInfo(customerService:any): void {
@@ -89,16 +92,47 @@ export class CustomerServicesComponent {
       (response: any) => {
         this.oneCustmerService = response;
         this.showInfoList = true;
-        this.showVehicleTable = false;
+        this.showServiceTable = false;
       },
       (error: any) => console.log(error)
     )
   }
 
   public updateCustomerServiceFormShow(id:string){
+    this._customerServicesService.getCustomerServiceById(id).subscribe(
+      (response: any) => {
+        this.custmerServicesToUpdate = response;
+        if (this.custmerServicesToUpdate) {
+          this.updateCustomerServicesFormGroup.patchValue({
+            name: this.custmerServicesToUpdate.name || '',
+            price: this.custmerServicesToUpdate.price || '',
+            info: this.custmerServicesToUpdate.info || '',
+          })
+        }
+        this.showUpdateForm = true;
+        this.showServiceTable = false;
+        this.refreshData();
+      },
+      (error:any) => this._errorService.setError = error.error.message
+    )
   }
 
   public updateCustomerService(): void {
+
+    const updateService : IUpdateCustomerServices = <IUpdateCustomerServices> {
+      name: this.updateCustomerServicesFormGroup.value.name,
+      price: this.updateCustomerServicesFormGroup.value.price,
+      info: this.updateCustomerServicesFormGroup.value.info,
+    }
+
+    this._customerServicesService.updateCustomerService(this.custmerServicesToUpdate.id, updateService).subscribe(
+      (response: any) => {
+        this.showUpdateForm = false;
+        this.showServiceTable = true;
+        this.refreshData();
+      },
+      (error:any) => this._errorService.setError = error.error.message
+    )
   }
 
   public deleteConfirmation(confirm : boolean){

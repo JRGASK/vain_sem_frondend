@@ -19,3 +19,13 @@ export interface ICreateCustomerServices {
   info: string;
 
 }
+
+export interface IUpdateCustomerServices {
+
+  name: string;
+
+  price: string;
+
+  info: string;
+
+}
