@@ -11,10 +11,11 @@ import { CreateVehicleComponent } from './vehiclePart/create-vehicle/create-vehi
 import {
   CreateCustomerServiceComponent
 } from './cutomerSevicesPart/create-customer-service/create-customer-service.component';
+import { CustomerOrderComponent } from './customerOrderPart/customer-order/customer-order.component';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule, VehiclesComponent, CreateVehicleComponent, CreateCustomerServiceComponent, CreateCustomerServiceComponent],
+  imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule, VehiclesComponent, CreateVehicleComponent, CreateCustomerServiceComponent, CreateCustomerServiceComponent, CustomerOrderComponent],
   providers: [ErrorService,LoginService,HttpClientModule],
   selector: 'app-root',
   templateUrl: './app.component.html',

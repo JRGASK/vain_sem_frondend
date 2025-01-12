@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe, NgClass, NgIf } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -6,6 +6,7 @@ import { CustomerOrderService } from '../customer-order-service/customerOrder.se
 import { Router } from '@angular/router';
 import { ErrorService } from '../../error/error.service';
 import { ICreateCustomerOrder } from '../customerOrder/ICustomerOrder';
+import { CustomerServicesService } from '../../cutomerSevicesPart/customerServices-service/customerServices.service';
 
 @Component({
   selector: 'app-create-customer-order',
@@ -17,13 +18,14 @@ import { ICreateCustomerOrder } from '../customerOrder/ICustomerOrder';
     HttpClientModule,
     FormsModule,
   ],
-  providers: [CustomerOrderService],
+  providers: [CustomerOrderService,CustomerServicesService],
   templateUrl: './create-customer-order.component.html',
   styleUrl: './create-customer-order.component.css',
 })
-export class CreateCustomerOrderComponent {
+export class CreateCustomerOrderComponent{
 
   selectedDate = '';
+
   public createCustomerOrderFormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     serviceId: new FormControl('', [Validators.minLength(1)]),
@@ -34,8 +36,11 @@ export class CreateCustomerOrderComponent {
   constructor(
     private _router: Router,
     private _customerOrderService: CustomerOrderService,
+    private _customerServiceService: CustomerServicesService,
     private _errorService: ErrorService
   ) {}
+
+
 
   public hasError(formControlName: string, error: string): boolean {
     const formControl = this.createCustomerOrderFormGroup.get(formControlName);
@@ -67,4 +72,5 @@ export class CreateCustomerOrderComponent {
         }
       );
   }
+
 }

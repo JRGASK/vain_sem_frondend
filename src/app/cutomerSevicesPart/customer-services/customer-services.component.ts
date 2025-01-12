@@ -23,6 +23,7 @@ export class CustomerServicesComponent {
   public oneCustmerService: any;
 
   public custmerServices: any[] = [];
+
   public custmerServicesToUpdate: any;
 
   private _currentUser: IUser | undefined;

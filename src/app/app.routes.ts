@@ -18,6 +18,7 @@ import { CustomerServicesComponent } from './cutomerSevicesPart/customer-service
 import {
   CreateCustomerOrderComponent
 } from './customerOrderPart/create-customer-order/create-customer-order.component';
+import { CustomerOrderComponent } from './customerOrderPart/customer-order/customer-order.component';
 
 export const appRoutes: Route[] = [
   { path: 'login', component: LoginComponent },
@@ -33,5 +34,6 @@ export const appRoutes: Route[] = [
   { path: 'customerServices', component: CustomerServicesComponent, canActivate: [AuthGuard,RoleGuard]},
   { path: 'createCustomerServices', component: CreateCustomerServiceComponent, canActivate: [AuthGuard,RoleGuard]},
   { path: 'createCustomerOrder', component: CreateCustomerOrderComponent, canActivate: [AuthGuard,RoleGuard]},
+  { path: 'customerOrder', component: CustomerOrderComponent, canActivate: [AuthGuard,RoleGuard]},
   { path: '',   redirectTo: '/mainPage', pathMatch: 'full' },
 ];

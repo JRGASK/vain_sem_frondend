@@ -1,1 +1,57 @@
-<p>customer-order works!</p>
+<div class="container d-flex justify-content-center mt-5">
+  <div class="container mt-5 ">
+    <div *ngIf="showInfoList" class="card border-color-gold">
+      <div class="card-header text-bg-dark border-color-gold ">
+        <h3 class="card-title"> {{ oneCustmerOrder.id || 'Not Available'}} {{ oneCustmerOrder.email || 'Not Available'}}  details</h3>
+      </div>
+      <div class="card-body text-bg-dark border-color-gold ">
+        <ul class="list-group list-group-flush border-color-gold ">
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>ID:</strong> {{ oneCustmerOrder.id || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Email:</strong> {{ oneCustmerOrder.email || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Price:</strong> {{ oneCustmerOrder.price||'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Create Date:</strong> {{ oneCustmerOrder.dateOfCreate || 'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Date:</strong> {{ oneCustmerOrder.date || 'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Service Id:</strong> {{ oneCustmerOrder.serviceId || 'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Vehicle Plate Number:</strong> {{ oneCustmerOrder.vehiclePlateNumber || 'Not Available' }}</li>
+        </ul>
+      </div>
+      <div class="card-footer text-bg-dark  ">
+        <button type="button" class="btn btn-AU-gold w-100 " (click)="hideDetails()">HIDE</button>
+      </div>
+    </div>
+
+
+    <div *ngIf="showOrderTable" class="container mt-5 ">
+      <div class="table-container table-responsive border-color-gold">
+        <table border="1" class="table table-striped  table-hover table-dark border-color-gold">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let order of custmerOrders">
+            <td>{{ order.id }}</td>
+            <td>{{ order.email }}</td>
+            <td>{{ order.date }}</td>
+            <td>
+              <div class="btn-group" *ngIf="!deleteConfirm">
+                <button type="button" class="btn btn-info" (click)="getCustomerServiceInfo(order)">Info</button>
+                <button type="button" class="btn btn-primary" (click)="updateCustomerServiceFormShow(order.id)">Update</button>
+                <button *ngIf="!deleteConfirm" type="button" class="btn btn-danger" (click)="deleteConfirmation(true)">Delete</button>
+              </div>
+              <div *ngIf="deleteConfirm">
+                <button *ngIf="deleteConfirm" type="button" class="btn btn-primary" (click)="deleteOrderService(order)">YES</button>
+                <button type="button" class="btn btn-danger" (click)="deleteConfirmation(false)">NO</button>
+              </div>
+          </tr>
+          </tbody>
+        </table>
+        <p *ngIf="custmerOrders.length === 0">Nie sú dostupné žiadne údaje.</p>
+      </div>
+    </div>
+  </div>
+</div>
