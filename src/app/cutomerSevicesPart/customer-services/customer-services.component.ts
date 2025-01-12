@@ -57,7 +57,6 @@ export class CustomerServicesComponent {
   ngOnInit(): void {
     this._currentUser = this._loginService.currentUser();
     this.loadData();
-    console.log(this._currentUser);
   }
 
   public loadData(): void {

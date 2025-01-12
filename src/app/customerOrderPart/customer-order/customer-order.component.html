@@ -39,7 +39,7 @@
             <td>{{ order.date }}</td>
             <td>
               <div class="btn-group" *ngIf="!deleteConfirm">
-                <button type="button" class="btn btn-info" (click)="getCustomerServiceInfo(order)">Info</button>
+                <button type="button" class="btn btn-info" (click)="getCustomerOrderInfo(order)">Info</button>
                 <button type="button" class="btn btn-primary" (click)="updateCustomerServiceFormShow(order.id)">Update</button>
                 <button *ngIf="!deleteConfirm" type="button" class="btn btn-danger" (click)="deleteConfirmation(true)">Delete</button>
               </div>

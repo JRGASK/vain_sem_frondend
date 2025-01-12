@@ -15,6 +15,10 @@ export class CustomerOrderService {
     return this._http.get(`http://localhost:8080/customerOrders`);
   }
 
+  public getCustomerOrderById(id:string):Observable<any> {
+    return this._http.get(`http://localhost:8080/customerOrders/customerOrder/${id}`);
+  }
+
   public createCustomerOrder(data:ICreateCustomerOrder): Observable<any> {
     return this._http.post<ICreateCustomerOrder>('http://localhost:8080/customerOrders/customerOrder', data);
   }

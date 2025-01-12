@@ -46,7 +46,7 @@ export class CustomerOrderComponent {
     private _router: Router,
     private cdr: ChangeDetectorRef,
     private _errorService: ErrorService,
-    private _customerServicesService: CustomerOrderService,
+    private _customerOrderService: CustomerOrderService,
     private _loginService: LoginService
   ) {
     effect(() => {
@@ -57,11 +57,10 @@ export class CustomerOrderComponent {
   ngOnInit(): void {
     this._currentUser = this._loginService.currentUser();
     this.loadData();
-    console.log(this._currentUser);
   }
 
   public loadData(): void {
-    this._customerServicesService.getAllCustomerOrders().subscribe(
+    this._customerOrderService.getAllCustomerOrders().subscribe(
       (response: any) => (this.custmerOrders = response.content),
       (error: any) => console.log(error))
   }
@@ -78,7 +77,15 @@ export class CustomerOrderComponent {
     this.showOrderTable = true;
   }
 
-  public getCustomerServiceInfo(customerService:any): void {
+  public getCustomerOrderInfo(customerOrder:any): void {
+    this._customerOrderService.getCustomerOrderById(customerOrder.id).subscribe(
+      (response: any) => {
+        this.oneCustmerOrder = response;
+        this.showInfoList = true;
+        this.showOrderTable = false;
+      },
+      (error: any) => console.log(error)
+    )
   }
 
   public updateCustomerServiceFormShow(id:string){
@@ -102,6 +109,13 @@ export class CustomerOrderComponent {
   }
 
   public deleteOrderService(vehicle: any): void {
+    this._customerOrderService.deleteCustomerOrderById(vehicle.id).subscribe(
+      () => {
+        this.refreshData();
+        this.deleteConfirm = false;
+      },
+      (error: any) => console.log(error)
+    );
   }
 
 
