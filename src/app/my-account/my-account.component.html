@@ -1,52 +1,61 @@
-<div class="container">
-  <div  class="container">
-    <div  *ngIf="showMyAcount" class="card border-color-purple">
-      <div class="card-header bg-color-gold">
+<div class="container d-flex justify-content-center mt-5">
+  <div  class="container mt-5">
+    <div  *ngIf="showMyAcount" class="card border-color-gold">
+      <div class="card-header text-bg-dark bg-color-gold">
         <h3 class="card-title"> {{ currentUser?.name || 'Not Available'}} {{ currentUser?.surname || 'Not Available'}}</h3>
       </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item list-group-item-action "><strong>Email:</strong> {{ userData?.email || 'Not Available'}}</li>
-          <li class="list-group-item list-group-item-action"><strong>Name:</strong> {{ userData?.name || 'Not Available'}}</li>
-          <li class="list-group-item list-group-item-action"><strong>Surname:</strong> {{ userData?.surname ||'Not Available' }}</li>
-          <li class="list-group-item list-group-item-action"><strong>Phone Number:</strong> {{ userData?.phoneNumber || 'Not Available' }}</li>
+      <div class=" card-body text-bg-dark border-color-gold">
+        <ul class="list-group  list-group-flush border-color-gold">
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold "><strong>Email:</strong> {{ userData?.email || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Name:</strong> {{ userData?.name || 'Not Available'}}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Surname:</strong> {{ userData?.surname ||'Not Available' }}</li>
+          <li class="list-group-item list-group-item-action text-bg-dark border-color-gold"><strong>Phone Number:</strong> {{ userData?.phoneNumber || 'Not Available' }}</li>
         </ul>
       </div>
-      <div class="card-footer bg-color-gold  ">
-        <button type="button" class="btn btn-AU w-100 " (click)="updateForm()">Update</button>
+
+      <div class="card-footer text-bg-dark">
+        <button type="button" class="btn btn-AU-gold w-100 " (click)="updateForm()">Update</button>
       </div>
     </div>
 
 
-    <div *ngIf="showUpdateForm" class="container" >
-      <div class="login-header text-center">
-        <h2>Update</h2>
-        <p>Update person</p>
-      </div>
-      <div class="container mt-4">
-        <form  [formGroup]="updateMyAccountGroup" class="form-group">
+    <div *ngIf="showUpdateForm" class="card text-bg-dark border-color-gold" >
+      <div>
+        <div class="card-header border-color-gold text-center">
+          <h2>Update</h2>
+          <p>Update person</p>
+        </div>
 
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input id="name" class="form-control" formControlName="name" type="text" placeholder="Name" [ngClass]="{'error-input': hasError('name','required')}">
-            <div class="error-input" *ngIf="hasError('name','required')">Name is required</div>
+        <div class="container mt-4 card-body">
+          <form  [formGroup]="updateMyAccountGroup" class="form-group">
 
+
+            <div class="row mb-3">
+              <div class="col">
+                <label for="name" class="form-label text-bg-dark">Name</label>
+                <input id="name" class="form-control text-bg-dark" formControlName="name" type="text" placeholder="Name" [ngClass]="{'error-input': hasError('name','required')}">
+                <div class="error-input" *ngIf="hasError('name','required')">Name is required</div>
+              </div>
+
+              <div class="col">
+                <label for="surname" class="form-label text-bg-dark">Surname</label>
+                <input id="surname" class="form-control text-bg-dark" type="text" placeholder="Surname" formControlName="surname" [ngClass]="{'error-input': hasError('surname','required')}">
+                <div class="error-input" *ngIf="hasError('surname','required')">Surname is required</div>
+              </div>
+            </div>
+
+
+            <div class="mb-3">
+              <label for="phone_number" class="form-label text-bg-dark">Phone Number</label>
+              <input id="phone_number" class="form-control text-bg-dark" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{'error-input': hasError('phoneNumber','required')}">
+              <div class="error-input" *ngIf="hasError('phoneNumber','required')">Phone number is required</div>
+            </div>
+            </form>
+
+          <div class="card-footer border-color-gold">
+            <button  class="btn btn-AU-gold w-100"  [disabled]="!updateMyAccountGroup.valid" (click)="updatePerson()">Save</button>
           </div>
 
-          <div class="mb-3">
-            <label for="surname" class="form-label">Surname</label>
-            <input id="surname" class="form-control" type="text" placeholder="Surname" formControlName="surname" [ngClass]="{'error-input': hasError('surname','required')}">
-            <div class="error-input" *ngIf="hasError('surname','required')">Surname is required</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="phone_number" class="form-label">Phone Number</label>
-            <input id="phone_number" class="form-control" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{'error-input': hasError('phoneNumber','required')}">
-            <div class="error-input" *ngIf="hasError('phoneNumber','required')">Phone number is required</div>
-          </div>
-
-          <button  class="btn btn-primary w-100"  [disabled]="!updateMyAccountGroup.valid" (click)="updatePerson()">Save</button>
-        </form>
-      </div>
+        </div>
     </div>
 </div>
