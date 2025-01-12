@@ -19,7 +19,6 @@ import { CustomerServicesService } from '../customerServices-service/customerSer
 })
 export class CreateCustomerServiceComponent {
 
-  private _currentUser: IUser | undefined;
 
   public createCustomerServicesFormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -32,11 +31,7 @@ export class CreateCustomerServiceComponent {
     private _router: Router,
     private _customerServicesService: CustomerServicesService,
     private _errorService: ErrorService,
-    private _loginService: LoginService,
   ) {
-    effect(() => {
-      this._currentUser = this._loginService.currentUser();
-    });
   }
 
   public hasError(formControlName: string, error: string): boolean {
@@ -68,7 +63,4 @@ export class CreateCustomerServiceComponent {
     );
   }
 
-  public isAdmin():boolean {
-    return this._currentUser?.role === 'ADMIN';
-  }
 }

@@ -1,36 +1,41 @@
 import { Component } from '@angular/core';
-import { NgClass, NgIf } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DatePipe, NgClass, NgIf } from '@angular/common';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomerOrderService } from '../customer-order-service/customerOrder.service';
 import { Router } from '@angular/router';
-import { CustomerServicesService } from '../../cutomerSevicesPart/customerServices-service/customerServices.service';
 import { ErrorService } from '../../error/error.service';
-import { ICreateCustomerServices } from '../../cutomerSevicesPart/customerService/ICustomerServices';
 import { ICreateCustomerOrder } from '../customerOrder/ICustomerOrder';
 
 @Component({
   selector: 'app-create-customer-order',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule,NgClass, HttpClientModule],
+  imports: [
+    NgIf,
+    ReactiveFormsModule,
+    NgClass,
+    HttpClientModule,
+    FormsModule,
+  ],
   providers: [CustomerOrderService],
   templateUrl: './create-customer-order.component.html',
-  styleUrl: './create-customer-order.component.css'
+  styleUrl: './create-customer-order.component.css',
 })
 export class CreateCustomerOrderComponent {
 
+  selectedDate = '';
   public createCustomerOrderFormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required,Validators.email]),
-    price: new FormControl('', [Validators.minLength(1)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     serviceId: new FormControl('', [Validators.minLength(1)]),
     vehiclePlateNumber: new FormControl('', [Validators.minLength(1)]),
     date: new FormControl('', [Validators.minLength(1)]),
-  })
+  });
 
-  constructor(private _router: Router,
-              private _customerOrderService: CustomerOrderService,
-              private _errorService: ErrorService,) {
-  }
+  constructor(
+    private _router: Router,
+    private _customerOrderService: CustomerOrderService,
+    private _errorService: ErrorService
+  ) {}
 
   public hasError(formControlName: string, error: string): boolean {
     const formControl = this.createCustomerOrderFormGroup.get(formControlName);
@@ -43,24 +48,23 @@ export class CreateCustomerOrderComponent {
   }
 
   public createCustomerService() {
-
     const createdCustomerOrder: ICreateCustomerOrder = <ICreateCustomerOrder>{
       email: this.createCustomerOrderFormGroup.value.email,
-      price: this.createCustomerOrderFormGroup.value.price,
       serviceId: this.createCustomerOrderFormGroup.value.serviceId,
       vehiclePlateNumber: this.createCustomerOrderFormGroup.value.vehiclePlateNumber,
-      date: this.createCustomerOrderFormGroup.value.date,
+      date: this.selectedDate,
     };
 
-    this._customerOrderService.createCustomerOrder(createdCustomerOrder).subscribe(
-      (response: any) => {
-        console.log(response);
-        this._router.navigate(['/']);
-      },
-      (error: any) => {
-        this._errorService.setError = error.error.message;
-      }
-    );
+    this._customerOrderService
+      .createCustomerOrder(createdCustomerOrder)
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          this._router.navigate(['/createCustomerOrder']);
+        },
+        (error: any) => {
+          this._errorService.setError = error.error.message;
+        }
+      );
   }
-
 }

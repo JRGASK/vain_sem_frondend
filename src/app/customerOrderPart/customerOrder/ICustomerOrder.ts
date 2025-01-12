@@ -19,8 +19,6 @@ export interface ICreateCustomerOrder {
 
   date: string;
 
-  price: string;
-
   serviceId: string;
 
   vehiclePlateNumber: string;

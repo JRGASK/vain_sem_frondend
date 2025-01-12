@@ -14,7 +14,7 @@ import {
 
 @Component({
   standalone: true,
-  imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule, VehiclesComponent, CreateVehicleComponent, CreateCustomerServiceComponent],
+  imports: [RouterModule, LoginComponent, PersonsComponent,MainComponent,HttpClientModule, VehiclesComponent, CreateVehicleComponent, CreateCustomerServiceComponent, CreateCustomerServiceComponent],
   providers: [ErrorService,LoginService,HttpClientModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
