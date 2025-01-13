@@ -10,16 +10,16 @@
     <div class="card-body text-bg-dark">
       <form  [formGroup]="createCustomerOrderFormGroup">
         <div class="row mb-3">
-          <div class="col">
+          <div *ngIf="isAdmin()" class="col">
             <label for="email" class="form-label text-bg-dark">Email of Customer</label>
             <input id="email" class="form-control text-bg-dark" formControlName="email" type="text" placeholder="Email" [ngClass]="{'error-input': hasError('email','required')}">
-            <div class="error-input" *ngIf="hasError('email','required')">Name of service is required</div>
+            <div class="error-input" *ngIf="hasError('email','required')">Email of Customer is required</div>
           </div>
 
           <div class="col">
             <label for="vehiclePlateNumber" class="form-label text-bg-dark">Vehicle Plate Number</label>
-            <input id="vehiclePlateNumber" class="form-control text-bg-dark" formControlName="vehiclePlateNumber" type="text" placeholder="Email" [ngClass]="{'error-input': hasError('email','required')}">
-            <div class="error-input" *ngIf="hasError('vehiclePlateNumber','required')">Name of service is required</div>
+            <input id="vehiclePlateNumber" class="form-control text-bg-dark" formControlName="vehiclePlateNumber" type="text" placeholder="Email" [ngClass]="{'error-input': hasError('vehiclePlateNumber','required')}">
+            <div class="error-input" *ngIf="hasError('vehiclePlateNumber','required')">Vehicle Plate Numbe is required</div>
           </div>
         </div>
 

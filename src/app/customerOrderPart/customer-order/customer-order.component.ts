@@ -7,6 +7,8 @@ import { CustomerOrderService } from '../customer-order-service/customerOrder.se
 import { Router } from '@angular/router';
 import { ErrorService } from '../../error/error.service';
 import { LoginService } from '../../auth/login.service';
+import { IUpdateCustomerOrder } from '../customerOrder/ICustomerOrder';
+
 
 
 @Component({
@@ -18,6 +20,8 @@ import { LoginService } from '../../auth/login.service';
   styleUrl: './customer-order.component.css'
 })
 export class CustomerOrderComponent {
+
+  selectedDate = '';
 
   public oneCustmerOrder: any;
 
@@ -36,7 +40,7 @@ export class CustomerOrderComponent {
   public deleteConfirm = false;
 
   public updateCustomerOrderFormGroup = new FormGroup({
-    price: new FormControl('', [Validators.required, Validators.email]),
+    price: new FormControl('', [Validators.required]),
     serviceId: new FormControl('', [Validators.minLength(1)]),
     vehiclePlateNumber: new FormControl('', [Validators.minLength(1)]),
     date: new FormControl('', [Validators.minLength(1)]),
@@ -60,15 +64,26 @@ export class CustomerOrderComponent {
   }
 
   public loadData(): void {
-    this._customerOrderService.getAllCustomerOrders().subscribe(
-      (response: any) => (this.custmerOrders = response.content),
-      (error: any) => console.log(error))
+
+    if (this.isAdmin()){
+      this._customerOrderService.getAllCustomerOrders().subscribe(
+        (response: any) => (this.custmerOrders = response.content),
+        (error: any) => console.log(error))
+    }else {
+      if (this._currentUser) {
+        this._customerOrderService.getCustomerOrderByEmail(this._currentUser.email).subscribe(
+          (response: any) => (this.custmerOrders = response.content),
+          (error: any) => console.log(error)
+        );
+      }
+    }
+
   }
 
   public refreshData(): void {
     this.loadData();
     this.cdr.detectChanges();
-    this._router.navigate(['/customerServices']);
+    this._router.navigate(['/customerOrder']);
   }
 
   public hideDetails():void {
@@ -78,20 +93,57 @@ export class CustomerOrderComponent {
   }
 
   public getCustomerOrderInfo(customerOrder:any): void {
+    console.log(customerOrder.id);
     this._customerOrderService.getCustomerOrderById(customerOrder.id).subscribe(
       (response: any) => {
         this.oneCustmerOrder = response;
         this.showInfoList = true;
         this.showOrderTable = false;
+        console.log(this.oneCustmerOrder);
       },
       (error: any) => console.log(error)
     )
   }
 
   public updateCustomerServiceFormShow(id:string){
+    this._customerOrderService.getCustomerOrderById(id).subscribe(
+      (response: any) => {
+        this.custmerOrderToUpdate = response;
+        if (this.custmerOrderToUpdate) {
+          this.selectedDate = this.custmerOrderToUpdate.date;
+          this.updateCustomerOrderFormGroup.patchValue({
+            price: this.custmerOrderToUpdate.price || '',
+            serviceId: this.custmerOrderToUpdate.serviceId || '',
+            vehiclePlateNumber: this.custmerOrderToUpdate.vehiclePlateNumber || '',
+            date: this.custmerOrderToUpdate.date || '',
+          })
+        }
+
+        this.showUpdateForm = true;
+        this.showOrderTable = false;
+        this.refreshData();
+      },
+      (error:any) => this._errorService.setError = error.error.message
+    )
+
   }
 
   public updateCustomerService(): void {
+    const updateOrder : IUpdateCustomerOrder = <IUpdateCustomerOrder> {
+      price: this.updateCustomerOrderFormGroup.value.price,
+      serviceId: this.updateCustomerOrderFormGroup.value.serviceId,
+      vehiclePlateNumber: this.updateCustomerOrderFormGroup.value.vehiclePlateNumber,
+      date: this.selectedDate,
+    }
+
+    this._customerOrderService.updateCustomerOrder(this.custmerOrderToUpdate.id, updateOrder).subscribe(
+      (response: any) => {
+        this.showUpdateForm = false;
+        this.showOrderTable = true;
+        this.refreshData();
+      },
+      (error:any) => this._errorService.setError = error.error.message
+    )
   }
 
   public deleteConfirmation(confirm : boolean){
@@ -118,5 +170,8 @@ export class CustomerOrderComponent {
     );
   }
 
+  public isAdmin():boolean {
+    return this._currentUser?.role === 'ADMIN';
+  }
 
 }

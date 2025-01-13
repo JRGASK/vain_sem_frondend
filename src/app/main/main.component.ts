@@ -103,5 +103,14 @@ export class MainComponent {
   public toCreateCustomerServices() {
     this._router.navigate(['/createCustomerServices']);
   }
+
+  public toCreateCustomerOrder() {
+    this._router.navigate(['/createCustomerOrder']);
+  }
+
+  public toTableOfCustomerOrder(){
+    this._router.navigate(['/customerOrder']);
+  }
+
   protected readonly navigator = navigator;
 }

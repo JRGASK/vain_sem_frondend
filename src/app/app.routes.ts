@@ -33,7 +33,7 @@ export const appRoutes: Route[] = [
   { path: 'createVehicle', component: CreateVehicleComponent, canActivate: [AuthGuard]},
   { path: 'customerServices', component: CustomerServicesComponent, canActivate: [AuthGuard,RoleGuard]},
   { path: 'createCustomerServices', component: CreateCustomerServiceComponent, canActivate: [AuthGuard,RoleGuard]},
-  { path: 'createCustomerOrder', component: CreateCustomerOrderComponent, canActivate: [AuthGuard,RoleGuard]},
-  { path: 'customerOrder', component: CustomerOrderComponent, canActivate: [AuthGuard,RoleGuard]},
+  { path: 'createCustomerOrder', component: CreateCustomerOrderComponent, canActivate: [AuthGuard]},
+  { path: 'customerOrder', component: CustomerOrderComponent, canActivate: [AuthGuard]},
   { path: '',   redirectTo: '/mainPage', pathMatch: 'full' },
 ];
