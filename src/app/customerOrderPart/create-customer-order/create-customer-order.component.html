@@ -18,9 +18,21 @@
 
           <div class="col">
             <label for="vehiclePlateNumber" class="form-label text-bg-dark">Vehicle Plate Number</label>
-            <input id="vehiclePlateNumber" class="form-control text-bg-dark" formControlName="vehiclePlateNumber" type="text" placeholder="Email" [ngClass]="{'error-input': hasError('vehiclePlateNumber','required')}">
-            <div class="error-input" *ngIf="hasError('vehiclePlateNumber','required')">Vehicle Plate Numbe is required</div>
+            <select
+              id="vehiclePlateNumber"
+              class="form-select text-bg-dark"
+              formControlName="vehiclePlateNumber"
+              [ngClass]="{'error-input': hasError('vehiclePlateNumber', 'required')}"
+            >
+              <option *ngFor="let vehicle of vehicles" [value]="vehicle.plateNumber">
+                {{ vehicle.plateNumber }}
+              </option>
+            </select>
+            <div class="error-input" *ngIf="hasError('vehiclePlateNumber', 'required')">
+              Vehicle Plate Number is required
+            </div>
           </div>
+
         </div>
 
         <div class="row mb-3">
@@ -43,9 +55,19 @@
           </div>
 
           <div class="col">
-            <label for="serviceId" class="form-label text-bg-dark">Service Id</label>
-            <input id="serviceId" class="form-control text-bg-dark" formControlName="serviceId" type="text" placeholder="Service Id" [ngClass]="{'error-input': hasError('serviceId','required')}">
-            <div class="error-input" *ngIf="hasError('serviceId','required')">Name of service is required</div>
+            <div class="form-group text-bg-dark">
+              <label for="service" class="form-label text-bg-dark">Choose service</label>
+              <select
+                id="service"
+                class="form-select text-bg-dark"
+                formControlName="serviceId"
+              >
+              <option value="" >-- Vyberte službu --</option>
+              <option *ngFor="let service of services" [value]="service.id">
+                {{ service.name }} ({{ service.price || 'EUR' }})
+              </option>
+              </select>
+            </div>
           </div>
         </div>
       </form>
