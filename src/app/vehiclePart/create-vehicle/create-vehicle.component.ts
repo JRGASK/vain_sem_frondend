@@ -25,13 +25,14 @@ export class CreateVehicleComponent {
     plateNumber: new FormControl('', [
       Validators.required,
       Validators.minLength(1),
+      Validators.maxLength(9)
     ]),
-    type: new FormControl('', [Validators.minLength(1)]),
-    engine: new FormControl('', [Validators.minLength(1)]),
-    make: new FormControl('', [Validators.required]),
-    model: new FormControl('', [Validators.required]),
-    color: new FormControl('', [Validators.required]),
-    email: new FormControl(''),
+    type: new FormControl('', [Validators.required]),
+    engine: new FormControl('', [Validators.maxLength(255)]),
+    make: new FormControl('', [Validators.maxLength(255)]),
+    model: new FormControl('', [Validators.maxLength(255)]),
+    color: new FormControl('', [Validators.maxLength(255)]),
+    email: new FormControl('',[Validators.maxLength(255)]),
   });
 
   constructor(

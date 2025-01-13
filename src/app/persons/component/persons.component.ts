@@ -37,13 +37,15 @@ export class PersonsComponent implements OnInit {
     name: new FormControl('',[
       Validators.required,
       Validators.minLength(1),
+      Validators.maxLength(255)
     ]),
     surname: new FormControl('',[
       Validators.required,
       Validators.minLength(1),
+      Validators.maxLength(255)
     ]),
     phoneNumber: new FormControl('',
-      [Validators.minLength(1)
+      [Validators.maxLength(255)
       ]),
     role: new FormControl('',
       [Validators.required,
@@ -72,7 +74,7 @@ export class PersonsComponent implements OnInit {
   public loadData(): void {
     this._personsService.getPersons().subscribe(
       (response: any) => (this.users = response.content),
-      (error: any) => console.log(error)
+      (error: any) => this._errorService.setError = error.error
     );
   }
 
@@ -83,7 +85,7 @@ export class PersonsComponent implements OnInit {
         this.showInfoList = true;
         this.showPersonTable = false;
       },
-      (error: any) => console.log(error)
+      (error: any) => this._errorService.setError = error.error
     );
   }
 
@@ -94,7 +96,7 @@ export class PersonsComponent implements OnInit {
         this.refreshData();
         this._errorService.setError = "delete";
       },
-      (error: any) => console.error('Error deleting:', error)
+      (error: any) => this._errorService.setError = error.error
     );
   }
 

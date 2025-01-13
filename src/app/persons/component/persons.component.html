@@ -30,13 +30,13 @@
             <form  [formGroup]="updatePersonFormGroup">
             <div class="row mb-3">
               <div class="col">
-                <label for="name" class="form-label text-bg-dark">Name</label>
+                <label for="name" class="form-label text-bg-dark">Name*</label>
                 <input id="name" class="form-control text-bg-dark" formControlName="name" type="text" placeholder="Name" [ngClass]="{'error-input': hasError('name','required')}">
                 <div class="error-input" *ngIf="hasError('name','required')">Name is required</div>
               </div>
 
               <div class="col">
-                <label for="surname" class="form-label text-bg-dark">Surname</label>
+                <label for="surname" class="form-label text-bg-dark">Surname*</label>
                 <input id="surname" class="form-control text-bg-dark" type="text" placeholder="Surname" formControlName="surname" [ngClass]="{'error-input': hasError('surname','required')}">
                 <div class="error-input" *ngIf="hasError('surname','required')">Surname is required</div>
               </div>
@@ -44,13 +44,13 @@
 
             <div class="row mb-3">
               <div class="col ">
-                <label for="phone_number" class="form-label text-bg-dark">Phone Number</label>
+                <label for="phone_number" class="form-label text-bg-dark">Phone Number*</label>
                 <input id="phone_number" class="form-control text-bg-dark" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{'error-input': hasError('phoneNumber','required')}">
                 <div class="error-input" *ngIf="hasError('phoneNumber','required')">Phone number is required</div>
               </div>
 
                 <div class="col">
-                  <label for="rola" class="form-label text-bg-dark">Role</label>
+                  <label for="rola" class="form-label text-bg-dark">Role*</label>
                   <select id="rola" name="rola" class="form-select text-bg-dark" formControlName="role" [ngClass]="{'error-input': hasError('role','required')}">
                     <option value="" disabled selected>Select a role</option>
                     <option value="CUSTOMER">CUSTOMER</option>

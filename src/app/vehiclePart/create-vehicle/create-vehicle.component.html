@@ -11,13 +11,13 @@
       <form  [formGroup]="createVehicleFormGroup">
         <div class="row mb-3">
           <div class="col">
-            <label for="plateNumber" class="form-label text-bg-dark">Plate Number</label>
+            <label for="plateNumber" class="form-label text-bg-dark">Plate Number*</label>
             <input id="plateNumber" class="form-control text-bg-dark" formControlName="plateNumber" type="text" placeholder="Plate Number" [ngClass]="{'error-input': hasError('plateNumber','required')}">
             <div class="error-input" *ngIf="hasError('plateNumber','required')">Plate Number is required</div>
           </div>
 
           <div class="col" *ngIf="isAdmin()">
-            <label for="email" class="form-label text-bg-dark">Email</label>
+            <label for="email" class="form-label text-bg-dark">Email*</label>
             <input id="email" class="form-control text-bg-dark" type="text" placeholder="Email" formControlName="email" [ngClass]="{'error-input': hasError('email','required')}">
             <div class="error-input" *ngIf="hasError('email','required')">Email is required</div>
           </div>
@@ -25,7 +25,7 @@
 
         <div class="row mb-3">
           <div class="col">
-            <label for="type" class="form-label text-bg-dark">Type</label>
+            <label for="type" class="form-label text-bg-dark">Type*</label>
             <select id="type" name="rola" class="form-select text-bg-dark" formControlName="type" [ngClass]="{'error-input': hasError('type','required')}">
               <option value="" disabled selected>Select a type of vehicle</option>
               <option value="CAR">CAR</option>

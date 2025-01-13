@@ -32,8 +32,8 @@ export class CreateCustomerOrderComponent{
 
   public createCustomerOrderFormGroup = new FormGroup({
     email: new FormControl(''),
-    serviceId: new FormControl('', [Validators.required]),
-    vehiclePlateNumber: new FormControl('', [Validators.required]),
+    serviceId: new FormControl('', [Validators.required,Validators.minLength(1),Validators.maxLength(255)]),
+    vehiclePlateNumber: new FormControl('', [Validators.required,Validators.maxLength(9),Validators.minLength(1)]),
     date: new FormControl(''),
   });
 

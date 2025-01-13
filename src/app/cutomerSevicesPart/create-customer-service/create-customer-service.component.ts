@@ -21,9 +21,9 @@ export class CreateCustomerServiceComponent {
 
 
   public createCustomerServicesFormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.minLength(1)]),
-    info: new FormControl('', [Validators.minLength(1)]),
+    name: new FormControl('', [Validators.maxLength(255)]),
+    price: new FormControl('', [Validators.maxLength(255)]),
+    info: new FormControl('', [Validators.maxLength(255)]),
   });
 
 

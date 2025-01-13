@@ -37,9 +37,9 @@ export class CustomerServicesComponent {
   public deleteConfirm = false;
 
   public updateCustomerServicesFormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.minLength(1)]),
-    info: new FormControl('', [Validators.minLength(1)]),
+    name: new FormControl('', [Validators.maxLength(255)]),
+    price: new FormControl('', [Validators.maxLength(255)]),
+    info: new FormControl('', [Validators.maxLength(255)]),
   });
 
   constructor(
@@ -62,7 +62,8 @@ export class CustomerServicesComponent {
   public loadData(): void {
     this._customerServicesService.getCustomerServices().subscribe(
       (response: any) => (this.custmerServices = response.content),
-      (error: any) => console.log(error))
+      (error: any) => this._errorService.setError = error.error.message
+    )
   }
 
   public refreshData(): void {
@@ -94,7 +95,7 @@ export class CustomerServicesComponent {
         this.showInfoList = true;
         this.showServiceTable = false;
       },
-      (error: any) => console.log(error)
+      (error: any) => this._errorService.setError = error.error.message
     )
   }
 

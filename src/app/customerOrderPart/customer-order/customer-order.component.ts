@@ -40,9 +40,9 @@ export class CustomerOrderComponent {
   public deleteConfirm = false;
 
   public updateCustomerOrderFormGroup = new FormGroup({
-    price: new FormControl('', [Validators.required]),
-    serviceId: new FormControl('', [Validators.minLength(1)]),
-    vehiclePlateNumber: new FormControl('', [Validators.minLength(1)]),
+    price: new FormControl('', [Validators.required,Validators.maxLength(255)]),
+    serviceId: new FormControl('', [Validators.minLength(1),Validators.required]),
+    vehiclePlateNumber: new FormControl('', [Validators.minLength(1),Validators.required]),
     date: new FormControl('', [Validators.minLength(1)]),
   });
 
@@ -93,13 +93,11 @@ export class CustomerOrderComponent {
   }
 
   public getCustomerOrderInfo(customerOrder:any): void {
-    console.log(customerOrder.id);
     this._customerOrderService.getCustomerOrderById(customerOrder.id).subscribe(
       (response: any) => {
         this.oneCustmerOrder = response;
         this.showInfoList = true;
         this.showOrderTable = false;
-        console.log(this.oneCustmerOrder);
       },
       (error: any) => console.log(error)
     )

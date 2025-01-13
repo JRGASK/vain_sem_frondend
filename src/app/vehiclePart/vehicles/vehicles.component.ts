@@ -41,25 +41,21 @@ export class VehiclesComponent implements OnInit {
     plateNumber: new FormControl('',[
       Validators.required,
       Validators.minLength(1),
+      Validators.maxLength(9),
     ]),
-    type: new FormControl('',[
-      Validators.minLength(1),
-    ]),
+    type: new FormControl('',[Validators.maxLength(255)]),
     engine: new FormControl('',
-      [Validators.minLength(1)
-      ]),
+      [Validators.maxLength(255)]),
     make: new FormControl('',
-      [Validators.required,
-      ]),
+      [Validators.maxLength(255)]),
     model: new FormControl('',
-      [Validators.required,
-      ]),
+      [Validators.maxLength(255)]),
     color: new FormControl('',
-      [Validators.required,
-      ]),
+      [Validators.maxLength(255)]),
     email: new FormControl('',
       [Validators.required,
         Validators.email,
+        Validators.maxLength(255)
       ]),
   })
 
@@ -78,27 +74,22 @@ export class VehiclesComponent implements OnInit {
   ngOnInit(): void {
     this._currentUser = this._loginService.currentUser();
     this.loadData();
-    console.log(this._currentUser);
   }
 
   public loadData(): void {
     if (this.isAdmin()){
       this._vehicleService.getVehicles().subscribe(
         (response: any) => (this.vehicles = response.content),
-        (error: any) => console.log(error)
+        (error: any) => this._errorService.setError = error.error.message
       );
     }else {
       if (this._currentUser) {
         this._vehicleService.getVehicleByEmail(this._currentUser.email).subscribe(
           (response: any) => (this.vehicles = response.content),
-          (error: any) => console.log(error)
+          (error: any) => this._errorService.setError = error.error.message
         )
       }
-      console.log(this.vehicles);
-      console.log(this._currentUser);
     }
-
-
   }
 
   public refreshData(): void {
@@ -133,7 +124,7 @@ export class VehiclesComponent implements OnInit {
        console.log(response);
        console.log(this.oneVehicle);
      },
-     (error:any) => console.error(error)
+     (error:any) => this._errorService.setError = error.error.message
    );
   }
 

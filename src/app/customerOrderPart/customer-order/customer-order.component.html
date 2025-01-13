@@ -24,21 +24,21 @@
       <div class="card text-bg-dark border-color-gold">
 
         <div class="card-header text-center border-color-gold">
-          <h2>Create</h2>
-          <p>Create Customer Order</p>
+          <h2>Update</h2>
+          <p>Update Customer Order</p>
         </div>
 
         <div class="card-body text-bg-dark">
           <form  [formGroup]="updateCustomerOrderFormGroup">
             <div class="row mb-3">
               <div class="col">
-                <label for="price" class="form-label text-bg-dark">Price</label>
+                <label for="price" class="form-label text-bg-dark">Price*</label>
                 <input id="price" class="form-control text-bg-dark" formControlName="price" type="text" placeholder="Price" [ngClass]="{'error-input': hasError('email','required')}">
                 <div class="error-input" *ngIf="hasError('email','required')">Name of service is required</div>
               </div>
 
               <div class="col">
-                <label for="vehiclePlateNumber" class="form-label text-bg-dark">Vehicle Plate Number</label>
+                <label for="vehiclePlateNumber" class="form-label text-bg-dark">Vehicle Plate Number*</label>
                 <input id="vehiclePlateNumber" class="form-control text-bg-dark" formControlName="vehiclePlateNumber" type="text" placeholder="Email" [ngClass]="{'error-input': hasError('email','required')}">
                 <div class="error-input" *ngIf="hasError('vehiclePlateNumber','required')">Name of service is required</div>
               </div>
@@ -48,7 +48,7 @@
               <div class="col">
                 <form>
                   <div class="mb-3">
-                    <label for="datePicker" class="form-label text-bg-dark">Please choose dates:</label>
+                    <label for="datePicker" class="form-label text-bg-dark">Please choose dates*:</label>
                     <input
                       type="date"
                       id="datePicker"
@@ -64,7 +64,7 @@
               </div>
 
               <div class="col">
-                <label for="serviceId" class="form-label text-bg-dark">Service Id</label>
+                <label for="serviceId" class="form-label text-bg-dark">Service Id*</label>
                 <input id="serviceId" class="form-control text-bg-dark" formControlName="serviceId" type="text" placeholder="Service Id" [ngClass]="{'error-input': hasError('serviceId','required')}">
                 <div class="error-input" *ngIf="hasError('serviceId','required')">Name of service is required</div>
               </div>

@@ -27,29 +27,34 @@ export class CreatePersonComponent {
     email: new FormControl('',[
       Validators.required,
       Validators.email,
+      Validators.maxLength(255)
     ]),
     name: new FormControl('',[
       Validators.required,
       Validators.minLength(1),
+      Validators.maxLength(255)
     ]),
     surname: new FormControl('',[
       Validators.required,
       Validators.minLength(1),
+      Validators.maxLength(255)
     ]),
     password: new FormControl('',[
       Validators.required,
       passwordComplexityValidator,
       Validators.minLength(1),
+      Validators.maxLength(255)
     ]),
     confirmPassword: new FormControl('',
       [Validators.required,
-        Validators.minLength(1)
+        Validators.minLength(1),
+        Validators.maxLength(255)
       ]),
     phoneNumber: new FormControl('',
-      [Validators.minLength(1)
-      ]),
+      [Validators.maxLength(255)]),
     role: new FormControl('',
       [Validators.required,
+        Validators.maxLength(255)
       ]),
   }, { validators: passwordMismatchValidator})
 
