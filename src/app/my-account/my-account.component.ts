@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ErrorService } from '../error/error.service';
 
-
 @Component({
   selector: 'app-my-account',
   standalone: true,
@@ -26,6 +25,8 @@ export class MyAccountComponent {
   public showUpdateForm = false;
 
   public showMyAcount = true;
+
+  public vehicles:any;
 
   public updateMyAccountGroup = new FormGroup({
     name: new FormControl('', [
@@ -82,10 +83,14 @@ export class MyAccountComponent {
   }
 
   public getUserData(){
-    console.log(this._currentUser?.email)
     if (this._currentUser){
       this._personService.getPersonByEmail(this._currentUser?.email).subscribe((response: any) => {
         this.userData = response;
+        this.refreshData();
+      });
+
+      this._personService.getVehicles(this._currentUser?.email).subscribe((response: any) => {
+        this.vehicles = response;
         this.refreshData();
       });
     }
@@ -98,7 +103,6 @@ export class MyAccountComponent {
   }
 
   public updateForm(){
-
     this.updateMyAccountGroup.patchValue({
         name: this.userData?.name || '',
         surname: this.userData?.surname || '',

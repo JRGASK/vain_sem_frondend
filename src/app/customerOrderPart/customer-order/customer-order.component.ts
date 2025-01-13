@@ -68,12 +68,12 @@ export class CustomerOrderComponent {
     if (this.isAdmin()){
       this._customerOrderService.getAllCustomerOrders().subscribe(
         (response: any) => (this.custmerOrders = response.content),
-        (error: any) => console.log(error))
+        (error: any) => this._errorService.setError = error.error.message)
     }else {
       if (this._currentUser) {
         this._customerOrderService.getCustomerOrderByEmail(this._currentUser.email).subscribe(
           (response: any) => (this.custmerOrders = response.content),
-          (error: any) => console.log(error)
+          (error: any) =>this._errorService.setError = error.error.message
         );
       }
     }
@@ -99,7 +99,7 @@ export class CustomerOrderComponent {
         this.showInfoList = true;
         this.showOrderTable = false;
       },
-      (error: any) => console.log(error)
+      (error: any) => this._errorService.setError = error.error.message
     )
   }
 
@@ -164,7 +164,7 @@ export class CustomerOrderComponent {
         this.refreshData();
         this.deleteConfirm = false;
       },
-      (error: any) => console.log(error)
+      (error: any) => this._errorService.setError = error.error.message
     );
   }
 

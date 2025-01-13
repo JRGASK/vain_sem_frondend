@@ -28,4 +28,8 @@ export class PersonsService {
   public updatePerson(email: string, updatedPerson: IUpdateUser): Observable<any> {
     return this._http.put(`http://localhost:8080/persons/person/${email}`, updatedPerson);
   }
+
+  public getVehicles(email:string):Observable<any> {
+    return this._http.get(`http://localhost:8080/persons/person/vehicles/${email}`);
+  }
 }

@@ -6,7 +6,6 @@ import { IUser } from '../user/IUser';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorService } from '../error/error.service';
 
-
 @Component({
   selector: 'app-main',
   standalone: true,
@@ -30,7 +29,6 @@ export class MainComponent {
     });
 
   }
-
   public hasErrorMsg(): boolean {
     return !!this._error;
   }
