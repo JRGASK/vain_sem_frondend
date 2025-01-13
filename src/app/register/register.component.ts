@@ -23,8 +23,8 @@ export const passwordMismatchValidator: ValidatorFn = (group: AbstractControl): 
 }
 
 export const passwordComplexityValidator: ValidatorFn = (form: AbstractControl): ValidationErrors | null => {
-  const passwordPattern = RegExp("[a-z]")
-  return form.value.match(passwordPattern) ? null : {passwordComplexity : true}
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+  return form.value.match(passwordRegex) ? null : {passwordComplexity : true}
 }
 
 @Component({
