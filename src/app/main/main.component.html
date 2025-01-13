@@ -36,8 +36,10 @@
                  Menu
               </a>
               <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
-                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfVehicles()">List of vehicles</button></li>
-                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toCreateVehicle()">Create Vehicle</button></li>
+                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfCustomerOrder()">My Reservation</button></li>
+                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toCreateCustomerOrder()">Reservation</button></li>
+                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfVehicles()">My vehicles</button></li>
+                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toCreateVehicle()">Add Vehicle</button></li>
               </ul>
             </li>
           </div>
@@ -51,8 +53,6 @@
                 <li><button  *ngIf="!isLogin()" class="dropdown-item "  (click)="toLogin()">Log In</button></li>
                 <li><button  *ngIf="!isLogin()" class="dropdown-item " (click)="toRegister()">Register</button></li>
                 <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toMyAccount()">My Account</button></li>
-                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toTableOfCustomerOrder()">My Orders</button></li>
-                <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="toCreateCustomerOrder()">Reservation</button></li>
                 <li><button  *ngIf="isLogin()" class="dropdown-item " (click)="logOut()">Log Out</button></li>
               </ul>
             </li>
